@@ -1,0 +1,692 @@
+﻿@{
+    ViewBag.Title = "Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Documents List
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Documents List</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>            
+            <div class="box-body">                
+                <div class="row">                  
+
+                    <div class="col-sm-2">
+
+                        <div class="form-group">
+                            <label>Visa Type</label>
+                            <div>
+                                @Html.DropDownList("ddvisa",
+                                                     new SelectList(ViewBag.VisaList as System.Collections.IEnumerable, "Value", "Text"), "All",
+                                                     new { @class = "form-control", @tabindex = "1" })
+                            </div>
+                        </div><!-- /.form group -->
+
+                    </div>
+
+                    <div class="col-sm-2">
+
+                        <div class="form-group">
+                            <label>Nationality</label>
+                            <div>
+                                @Html.DropDownList("ddcountry",
+                                            new SelectList(ViewBag.CountryList as System.Collections.IEnumerable, "Value", "Text"), "All",
+                                                     new { @class = "form-control", @tabindex = "2" })
+                            </div>
+                        </div><!-- /.form group -->
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="btn-adj">
+                            <button type="button" id="btnsearch" tabindex="3" onclick="GetInfo();" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> <!--/.box-->
+        <div id="div_error"></div>
+        <div class="box box-default">
+            <div class="box-footer">
+                <div class="margin  hidden-xs ">               
+                    <button id="addToTable" class="btn btn-default waves-effect waves-light">Add New Document <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+            <div class=" box-body table-responsive no-padding">              
+
+                <table id="datatable-editable" class="table table-hover">
+                   <thead>                                
+                        <tr>
+                            <th>Actions</th>
+                            <th>Code</th>
+                            <th>Document Name</th>
+                            <th>Nationality</th>
+                            <th>Visa Type</th>
+                            <th>Duration</th>
+                            <th>Visa Cost</th>
+                            <th>Charge</th> 
+                            <th>Processing Days</th> 
+                            <th>Sort Order</th>                                   
+                        </tr>
+                   </thead>
+                </table>
+
+            </div>
+            </div> <!--/.box-body-->
+        </div> <!--/.box-->
+    </section> <!-- /.content-->
+
+</div><!-- /.content-wrapper -->        
+<script src="@Url.Content("~/assets/js/jquery-1.12.0.min.js")"></script>
+
+<style type="text/css">
+    .readonly {
+    }
+</style>
+<script>
+    jQuery(document).ready(function () {
+        $.fn.dataTable.ext.errMode = 'throw';
+        var actions = [
+                    '<a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>',
+                    '<a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>',
+                    '<a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>'
+                    //'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
+        ].join(' ');
+
+        var Table1 = {
+            options: {
+                addButton: '#addToTable',
+                table: '#datatable-editable',
+                dialog: {
+                    wrapper: '#dialog',
+                    cancelButton: '#dialogCancel',
+                    confirmButton: '#dialogConfirm',
+                }
+            },
+
+            initialize: function () {
+                this
+                    .setVars()
+                    .build()
+                    .events();
+            },
+
+            setVars: function () {
+                this.$table = $(this.options.table);
+                this.$addButton = $(this.options.addButton);
+
+                // dialog
+                this.dialog = {};
+                this.dialog.$wrapper = $(this.options.dialog.wrapper);
+                this.dialog.$cancel = $(this.options.dialog.cancelButton);
+                this.dialog.$confirm = $(this.options.dialog.confirmButton);
+
+                return this;
+            },
+
+            build: function () {
+                this.datatable = this.$table.DataTable({
+                    aoColumns: [
+                        {
+                            "sWidth": "30px",
+                            "render": function (o) {
+                                return actions;
+                            },
+
+                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).attr('class', 'actions')
+                            },
+
+                            "bSortable": false
+                        },
+                        {
+                            "sWidth": "50px",
+                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).attr('class', 'key')
+                            }
+                        },
+                        {
+                            "sWidth": "150px",
+                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).attr('class', 'key1')
+                            }
+                        },
+                        {
+                            "sWidth": "150px",
+                            "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).attr('class', 'key2')
+                            }
+                        },
+                        { "sWidth": "100px" },
+                        { "sWidth": "250px" },
+                        { "sWidth": "75px" },
+                        { "sWidth": "75px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" }
+                    ],
+                    dom: 'Bfrtlip',
+                    responsive: !0,
+                    buttons: [
+                            {
+                                text: '<i class="fa fa-file-excel-o"></i>' + '&nbsp;' + 'Export Excel',
+                                className: 'btn btn-primary',
+                                extend: 'excel',
+                                title: 'Documents List',
+                                exportOptions: {
+                                    columns: [2, 3, 4, 5, 6, 7, 8, 9],
+                                    orthogonal: 'sort'
+                                }
+                            }
+                    ],
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    //"order": [[4, "desc"]],
+                    "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+                    "sAjaxSource": "@Url.Action("DocumentsList", "MasterTables")",
+                    "fnServerParams": function (aoData) {
+                        aoData.push(
+                            { "name": "DocumentName", "value": $('#ddvisa').val() },
+                            { "name": "Nationality", "value": $('#ddcountry').val() });
+                    },
+                    "bProcessing": true
+                });
+
+                window.dt = this.datatable;
+
+                return this;
+            },
+
+            events: function () {
+                var _self = this;
+
+                this.$table
+                    .on('click', 'a.save-row', function (e) {
+                        e.preventDefault();
+
+                        _self.rowSave($(this).closest('tr'));
+                    })
+                    .on('click', 'a.cancel-row', function (e) {
+                        e.preventDefault();
+
+                        _self.rowCancel($(this).closest('tr'));
+                    })
+                    .on('click', 'a.edit-row', function (e) {
+                        e.preventDefault();
+                        _self.rowEdit($(this).closest('tr'));
+
+                    })
+                    .on('click', 'a.remove-row', function (e) {
+                        e.preventDefault();
+
+                        var $row = $(this).closest('tr');
+                        modal({
+                            type: 'confirm',
+                            title: 'Confirmation',
+                            text: 'Are you sure you want to delete the row?',
+                            callback: function (result) {
+                                if (result)
+                                    _self.rowRemove($row);
+                            }
+                        });
+                    });
+
+                this.$addButton.on('click', function (e) {
+                    e.preventDefault();
+                    _self.rowAdd();
+                });
+
+                this.dialog.$cancel.on('click', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+
+                return this;
+            },
+
+            // ==========================================================================================
+            // ROW FUNCTIONS
+            // ==========================================================================================
+            rowAdd: function () {
+                $('#div_error').removeClass('alert alert-danger');
+                $('#div_error').html('');
+
+                this.$addButton.attr({ 'disabled': 'disabled' });
+
+                var actions,
+                    data,
+                    $row;
+
+                actions = [
+                    '<a href="#" tabindex="14" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>',
+                    '<a href="#" tabindex="15" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>',
+                    '<a href="#" tabindex="14" class="on-default edit-row"><i class="fa fa-pencil"></i></a>'
+                    //'<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
+                ].join(' ');
+
+                data = this.datatable.row.add([actions, '', '', '', '', '', '', '', '', '']);
+                $row = this.datatable.row(data[0]).nodes().to$();
+
+                $row
+                    .addClass('adding')
+                    .find('td:first')
+                    .addClass('actions');
+
+                this.rowEdit($row);
+
+                this.datatable.order([1, 'asc']).draw(); // always show fields
+            },
+
+            rowCancel: function ($row) {
+                $('#div_error').removeClass('alert alert-danger');
+                $('#div_error').html('');
+
+                var _self = this,
+                 $actions,
+                 i,
+                 data;
+
+                if ($row.hasClass('adding')) {
+                    this.rowRemove($row);
+                } else {
+
+                    data = this.datatable.row($row.get(0)).data();
+                    this.datatable.row($row.get(0)).data(data);
+
+                    $actions = $row.find('td.actions');
+                    if ($actions.get(0)) {
+                        this.rowSetActionsDefault($row);
+                    }
+
+                    this.datatable.draw();
+                }
+            },
+
+            rowEdit: function ($row) {
+                $('#div_error').removeClass('alert alert-danger');
+                $('#div_error').html('');
+
+                var _self = this,
+                    data;
+
+                data = this.datatable.row($row.get(0)).data();
+                $row.children('td').each(function (i) {
+                    var $this = $(this);
+
+                    if ($this.hasClass('actions')) {
+                        _self.rowSetActionsEditing($row);
+                    } else {
+                        if (i == 1) {
+                            $this.html(data[i]);
+                        }
+                        if (i == 2) {
+                            if ($row.hasClass('adding')) {
+
+                                $.ajax({
+                                    url: '@Url.Content("~/MasterTables/GenerateVisaList")',
+                                    type: 'POST',
+                                    data: JSON.stringify({ }),
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (result) {
+                                        if (result.success === true) {
+                                            var sel = $('<select class="form-control" tabindex="6">');
+                                            $.each(result.response, function (val, countryNames) {
+                                                sel.append('<option value="' + countryNames.Value + '">' + countryNames.Text + '</option>');
+                                            });
+                                            sel.append('</select>');
+                                            $this.html(sel);
+                                        }
+                                    }
+                                });
+
+                            }
+                            else {
+                                $this.html(data[i]);
+                            }
+                        }
+                        if (i == 3) {
+                            if ($row.hasClass('adding')) {
+
+                                $.ajax({
+                                    url: '@Url.Content("~/MasterTables/GenerateCountryList")',
+                                    type: 'POST',
+                                    data: JSON.stringify({ }),
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (result) {
+                                        if (result.success === true) {
+                                            var sel = $('<select class="form-control" tabindex="7">');
+                                            $.each(result.response, function (val, countryNames) {
+                                                sel.append('<option value="' + countryNames.Value + '">' + countryNames.Text + '</option>');
+                                            });
+                                            sel.append('</select>');
+                                            $this.html(sel);
+                                        }
+                                    }
+                                });
+
+                            }
+                            else {
+                                $this.html(data[i]);
+                            }
+                        }
+                        if (i == 4) {
+                            $this.html('<input type="text" tabindex="8" step="any" id="txtVisaType" style="text-transform: uppercase" placeholder = "Entry, Student, Business etc"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+                        if (i == 5) {
+                            $this.html('<input type="text" tabindex="9" step="any" id="txtDuration" style="text-transform: uppercase" placeholder = "6 Months, 1 year etc"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+                        if (i == 6) {
+                            $this.html('<input type="number" tabindex="10" step="any" id="txtVisaCost"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+                        if (i == 7) {
+                            $this.html('<input type="number" tabindex="11" step="any" id="txtCharge"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+                        if (i == 8) {
+                            $this.html('<input type="number" tabindex="12" step="any" id="txtProcessingDays"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+                        if (i == 9) {
+                            $this.html('<input type="number" tabindex="13" step="any" type="text" id="txtSortOrder"  class="form-control input-block" value="' + data[i] + '"/>');
+                        }
+
+                    }
+                });
+            },
+
+            rowSave: function ($row) {
+                var _self = this,
+                    $actions,
+                    values = [];
+
+                values = $row.find('td').map(function () {
+                    var $this = $(this);
+
+                    if ($this.hasClass('actions')) {
+                        _self.rowSetActionsDefault($row);
+                        return _self.datatable.cell(this).data();
+                    } else {
+                        if ($this.hasClass('chkbox')) {
+                            return $('#chkstatus').prop('checked');
+                        }
+                        else if ($this.hasClass('readonly')) {
+                            return $.trim($(this).html());
+                        }
+                        else if ($this.hasClass('key')) {
+                            return $.trim($(this).html());
+                        }
+                        else if ($this.hasClass('key1')) {
+                            if ($row.hasClass('adding')) {
+                                return $.trim($this.find('select').val());
+                            }
+                            else
+                                return $.trim($(this).html());
+                        }
+                        else if ($this.hasClass('key2')) {
+                            if ($row.hasClass('adding')) {
+                                return $.trim($this.find('select').val());
+                            }
+                            else
+                                return $.trim($(this).html());
+                        }
+                        else {
+                            return $.trim($this.find('input').val());
+                        }
+                    }
+                });
+                if($row.hasClass('adding')){ // Add
+                    if (IsStringEmpty(values[2]) || IsStringEmpty(values[3]) || IsStringEmpty(values[4]) || IsStringEmpty(values[5]) || IsStringEmpty(values[6]) || IsStringEmpty(values[7]) || IsStringEmpty(values[8])) {
+                        $('#div_error').addClass('alert alert-danger');
+                        $('#div_error').html('');
+
+                        if(IsStringEmpty(values[2]))
+                            $('#div_error').prepend('<p>Visa is Required.');
+                        if(IsStringEmpty(values[3]))
+                            $('#div_error').prepend('<p>Nationality is Required.');
+                        if(IsStringEmpty(values[4]))
+                            $('#div_error').prepend('<p>Visa Type is Required.');
+                        if(IsStringEmpty(values[5]))
+                            $('#div_error').prepend('<p>Duration is Required.');
+                        if(IsStringEmpty(values[6]))
+                            $('#div_error').prepend('<p>Visa Cost is Required.');
+                        if(IsStringEmpty(values[7]))
+                            $('#div_error').prepend('<p>Charge is Required.');
+                        if(IsStringEmpty(values[8]))
+                            $('#div_error').prepend('<p>Processing Days is Required.');
+
+                        $row.addClass('adding');
+                        $actions = $row.find('td.actions');
+                        if ($actions.get(0)) {
+                            this.rowSetActionsEditing($row);
+                        }
+
+                    }
+                    else {
+                        $('#div_error').removeClass('alert alert-danger');
+                        $('#div_error').html('');
+
+                        if (!confirm('Save Changes? Please confirm to proceed.')) {
+                            $row.addClass('adding');
+                            $actions = $row.find('td.actions');
+                            if ($actions.get(0)) {
+                                this.rowSetActionsEditing($row);
+                            }
+
+                        }
+                        else {
+                            var $this = this;
+
+                            $.ajax({
+                                url: '@Url.Content("~/MasterTables/CheckExistsDocument")',
+                                type: 'POST',
+                                data: JSON.stringify({ DocumentName: values[2], Nationality: values[3], VisaType: values[4], Duration: values[5] }),
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    if (result.success === true) {
+                                        $.ajax({
+                                            url: '@Url.Content("~/MasterTables/SaveDocument")',
+                                            type: 'POST',
+                                            data: JSON.stringify({ DocumentType: values[1], DocumentName: values[2], Nationality: values[3], VisaType: values[4] , Duration: values[5], VisaCost: values[6], Charge: values[7], ProcessingDays: values[8], SortOrder: values[9], mode: 'Create' }),
+                                            dataType: 'json',
+                                            contentType: 'application/json',
+                                            success: function (result) {
+                                                if (result.success === true) {
+                                                    $('#div_success').html(result.response);
+
+                                                    if ($row.hasClass('adding')) {
+                                                        $this.$addButton.removeAttr('disabled');
+                                                        $row.removeClass('adding');
+                                                    }
+
+                                                    $('#datatable-editable').DataTable().ajax.reload();
+                                                    $this.datatable.draw();
+                                                }
+                                                if (result.success === false) {
+                                                    $('#div_error').addClass('alert alert-danger');
+                                                    $('#div_error').html(result.response);
+
+                                                    $row.addClass('adding');
+                                                    $actions = $row.find('td.actions');
+                                                    if ($actions.get(0)) {
+                                                        $this.rowSetActionsEditing($row);
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                    if (result.success === false) {
+                                        $('#div_error').addClass('alert alert-danger');
+                                        $('#div_error').html(result.response);
+
+                                        $row.addClass('adding');
+                                        $actions = $row.find('td.actions');
+                                        if ($actions.get(0)) {
+                                            $this.rowSetActionsEditing($row);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+                else  { //Update
+                    $('#div_error').removeClass('alert alert-danger');
+                    $('#div_error').html('');
+
+                    if (!confirm('Save Changes? Please confirm to proceed.')) {
+                        // $row.addClass('adding');
+                        $actions = $row.find('td.actions');
+                        if ($actions.get(0)) {
+                            this.rowSetActionsEditing($row);
+                        }
+
+                    }
+                    else {
+                        var $this = this;
+                        $.ajax({
+                            url: '@Url.Content("~/MasterTables/SaveDocument")',
+                            type: 'POST',
+                            data: JSON.stringify({ DocumentType: values[1], DocumentName: values[2], Nationality: values[3], VisaType: values[4] , Duration: values[5], VisaCost: values[6], Charge: values[7], ProcessingDays: values[8], SortOrder: values[9], mode: 'Update' }),
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (result) {
+                                if (result.success === true) {
+                                    $('#div_success').html(result.response);
+
+                                    if ($row.hasClass('adding')) {
+                                        this.$addButton.removeAttr('disabled');
+                                        $row.removeClass('adding');
+                                    }
+
+                                    $('#datatable-editable').DataTable().ajax.reload();
+                                    $this.datatable.draw();
+                                }
+                                if (result.success === false) {
+                                    $('#div_error').addClass('alert alert-danger');
+                                    $('#div_error').html(result.response);
+
+                                    //$row.addClass('adding');
+                                    $actions = $row.find('td.actions');
+                                    if ($actions.get(0)) {
+                                        $this.rowSetActionsEditing($row);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+
+            },
+
+            rowRemove: function ($row) {
+                $('#div_error').removeClass('alert alert-danger');
+                $('#div_error').html('');
+
+                var _self = this,
+                  $actions,
+                  values = [];
+
+                if ($row.hasClass('adding')) {
+                    this.$addButton.removeAttr('disabled');
+                    this.datatable.row($row.get(0)).remove().draw();
+                }
+                else {
+                    values = $row.find('td').map(function () {
+                        var $this = $(this);
+                        if ($this.hasClass('actions')) {
+                            _self.rowSetActionsDefault($row);
+                            return _self.datatable.cell(this).data();
+                        } else {
+                            //return $.trim($this.find('input').val());
+                            return $.trim($this.html());
+                        }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Content("~/MasterTables/DeleteDocument")',
+                        type: 'POST',
+                        data: JSON.stringify({ DocumentCode: values[1] }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.success === true) {
+                                $('#div_success').html(result.response);
+
+                                _self.datatable.row($row.get(0)).remove().draw();
+                            }
+                            if (result.success === false) {
+                                $('#div_error').addClass('alert alert-danger');
+                                $('#div_error').html(result.response);
+
+                                $actions = $row.find('td.actions');
+                                if ($actions.get(0)) {
+                                    _self.rowSetActionsDefault($row);
+                                }
+                            }
+                        }
+                    });
+                }
+
+            },
+
+            rowSetActionsEditing: function ($row) {
+                $row.find('.on-editing').removeClass('hidden');
+                $row.find('.on-default').addClass('hidden');
+            },
+
+            rowSetActionsDefault: function ($row) {
+                $row.find('.on-editing').addClass('hidden');
+                $row.find('.on-default').removeClass('hidden');
+            }
+        };
+
+        $(function () {
+            Table1.initialize();
+        });
+
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+
+        $("input").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                $("#btnsearch").click();
+            }
+        });
+
+    });
+
+
+    function GetInfo() {
+        $('#datatable-editable').DataTable().ajax.reload();
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+</script>

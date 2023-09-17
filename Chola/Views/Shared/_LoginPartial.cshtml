@@ -1,0 +1,35 @@
+﻿@if (Request.IsAuthenticated) {
+    <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="@Url.Content("~/assets/img/admin.png")" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Hello  @User.Identity.Name</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="text-center">
+                                <a href="@Url.Action("Manage", "Account")">Change password</a>
+                            </div>
+                        </li>
+                        <li class="user-body">
+                            <div class="text-center">
+                            @using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a>
+                            }
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+   </div>
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>*@
+}
+

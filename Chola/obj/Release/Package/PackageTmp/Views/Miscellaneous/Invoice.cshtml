@@ -1,0 +1,315 @@
+﻿@{
+    ViewBag.Title = "Receipt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style >
+
+    .invoice-box {
+        max-width: 600px;
+        margin: auto;
+        padding: 10px;
+        font-size: 12px;
+        line-height: 15px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+        font-size: 15px;
+        line-height: 5px;
+        color: #333;
+    }
+
+    .logo-center {
+        text-align: center;
+    }
+
+    .invoice-box table tr.information table td {
+        padding-bottom: 10px;
+    }
+
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+        padding-bottom: 2px;
+    }
+    
+    .invoice-box table tr.details1 td {
+        padding-bottom: 2px;
+    }
+
+    .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header" id="hide1">
+        <h1>
+            Invoice
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Invoice</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default" id="hide2">
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>
+            <div id="div_error"></div>
+            <div class="box-body">               
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <div>
+                                <input type="text" name="txtCustomerName" placeholder="Enter customer name" style="text-transform: uppercase" class="form-control" id="txtCustomerName" tabindex="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Select Service</label>
+                            <div>
+                                @Html.DropDownList("ddservice",
+                                                     new SelectList(ViewBag.ServiceList as System.Collections.IEnumerable, "Value", "Text"), "All",
+                                                     new { @class = "form-control", @tabindex = "2" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <div>
+                                <input type="text" class="form-control" id="Amount" tabindex="3" name="Amount" placeholder="Enter amount">
+                            </div>
+                        </div>
+                    </div>                  
+
+                    <div class="col-sm-2">
+                        <div class="btn-adj">
+                            <button type="button" tabindex="4" id="btnadd" onclick="AddRecords();" class="btn btn-primary"><i class="fa fa-search"></i> ADD</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> <!--/.box-->
+        <div class="box box-default">
+
+            <div class="box-body">
+                <div class="invoice-box" id="myDiv" >
+                    <table cellpadding="0" cellspacing="0" class="tble" id="myTable">
+                        <tr class="top">
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td class="title logo-center">
+                                            <b>Chola SILOM LIMITED</b>                                
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="information">
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            Room 102, 1st Floor, Rasamee Tavorn Bldg.<br>
+                                            278, Silom Road,  Bangrak<br>
+                                            Bangkok 10500, Thailand<br>
+                                            Tel: 66 (0)2 234 1717<br>                                            
+                                            info@Cholasilom.net
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="heading">
+                            <td>
+                                Fee Receipt
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr class="details">
+                            <td>
+                                Customer Name :
+                            </td>
+
+                            <td>
+                                <span id="CustomerName" name="CustomerName"></span>
+                            </td>
+                        </tr>
+
+                        <tr class="details">
+                            <td>
+                                Total :
+                            </td>
+
+                            <td>
+                                <span name="total[]" id="total[]">0</span>
+                            </td>
+                        </tr>
+
+                        <tr class="details">
+                            <td colspan="2" align="center">
+                                Thank you!
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button type="button" id="printpagebutton" class="btn btn-primary btn-xs" onclick="myFunction('#myDiv')">Print</button>
+            </div> <!--/.box-body-->
+        </div> <!--/.box-->
+    </section> <!-- /.content-->
+
+</div><!-- /.content-wrapper -->
+
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $("#Amount").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+    });
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+
+    function myFunction() {        
+       
+        var serviceArray = []
+        var costArray = []
+        var custname = $('#txtCustomerName').val().toUpperCase();
+        var total = 0;
+
+        $('tr.details1').each(function (i, el) {
+            var $this = $(this),
+                $cost = $this.find('[name="cost\\[\\]"]').text(),
+                c = parseFloat($cost) || 0
+            total = parseFloat(total) + c;
+        });
+
+        total = total.toFixed(2);
+
+        $('tr.details1').each(function (i, el) {
+            var $this = $(this);
+            serviceArray.push($this.find('[name="service\\[\\]"]').text());
+            costArray.push($this.find('[name="cost\\[\\]"]').text());
+        });       
+
+        var url = '@Url.Content("~/Miscellaneous/InvoicePrint")' + '?CustomerName=' + custname + '&Service=' + serviceArray + '&Cost=' + costArray + '&Total=' + total;
+        window.open(url, window, 'dialogHeight:750px;dialogWidth:400px;edge:Raised;center:Yes;help:No;resizable:No;status:No;scroll:Yes;');
+
+    }   
+
+    function AddRecords() {
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+        $('#div_success').html('');
+
+        if (IsStringEmpty($('#txtCustomerName').val()) || $("#ddservice option:selected").text() == 'All' || IsStringEmpty($('#Amount').val())) {
+            $('#div_error').addClass('alert alert-danger');
+            $('#div_error').html('');
+            alert($("#ddservice option:selected").text());
+            if (IsStringEmpty($('#txtCustomerName').val()))
+                $('#div_error').prepend('<p>Customer Name is Required.');
+            if ($("#ddservice option:selected").text() == 'All')
+                $('#div_error').prepend('<p>Service Type is Required.');
+            if (IsStringEmpty($('#Amount').val()))
+                $('#div_error').prepend('<p>Amount is Required.');
+
+        }
+        else {
+            $("#CustomerName").html($('#txtCustomerName').val().toUpperCase());
+            $('#myTable tr:last').prev().before("<tr class='details1'><td><span name='service[]' id='service[]'>" + $("#ddservice option:selected").text() + "</span></td><td><span name='cost[]' id='cost[]'>" + $('#Amount').val() + "</span></td></tr>");
+
+            var total = 0;
+            $('tr.details1').each(function (i, el) {
+                var $this = $(this),
+                    $cost = $this.find('[name="cost\\[\\]"]').text(),
+                    c = parseFloat($cost) || 0
+                total = parseFloat(total) + c;
+            });
+
+            $('tr.details').each(function (i, el) {
+                var $this = $(this);
+                $this.find('[name="total\\[\\]"]').text(total.toFixed(2));
+            });
+            $('#div_success').html('Successfully Added!');
+            $('[tabindex=2]').focus();
+        }
+    }
+
+</script>
+
+
+

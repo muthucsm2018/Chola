@@ -1,0 +1,547 @@
+﻿@model Chola.Models.ETicketModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Edit E-Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <!-- Main content -->
+    @using (Html.BeginForm("EditETicket", "ETickets", null, FormMethod.Post, new { id = "EditTicket_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border" style="display:none">
+                            <h3 class="box-title"><span>Update E-Ticket Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">E-Ticket No</label><code>Auto</code>
+                                        <input type="text" class="form-control" id="ETicketCode" name="ETicketCode" value="@Model.ETicketCode" readonly="readonly" placeholder="xxxxx">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Reference No</label><code>Auto</code>
+                                        <div>
+                                            <input type="text" class="form-control" id="RefNo" name="RefNo" value="@Model.RefNo" readonly="readonly" placeholder="xxxxx">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Airline PNR</label>
+                                        <div>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="AirlinePNR" name="AirlinePNR" value="@Model.AirlinePNR" placeholder="Airline PNR" tabindex="1">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="control-label">Prefix</label>
+                                        @Html.DropDownList("Prefix",
+                                                new SelectList(ViewBag.Prefix as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 2 })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="control-label">Customer Name</label>
+                                        <input type="text" class="form-control" style="text-transform: uppercase" id="CustomerName" name="CustomerName" value="@Model.CustomerName" placeholder="Customer Name" tabindex="3">
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- /.box -->
+
+                        <div id="div_error"></div>
+                        <div class="box box-default">
+                            <div class="box-body">
+                                <h3 class="box-title"><span>Add Passenger Details</span></h3>
+
+                            </div> <!--/.box-->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Passenger Name</label>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="Passenger Name" id="PassengerName" tabindex="4" name="PassengerName">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Pax Type</label>
+                                            @Html.DropDownList("PaxType",
+                                                new SelectList(ViewBag.PaxType as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 5 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Tiket No</label>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="Ticket No" id="TicketNo" tabindex="6" name="TicketNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>&nbsp;</label>
+                                        <div class="form-group">
+                                            <div>
+                                                <button type="button" id="btnAddItem" onclick="AddPassenger()" class="btn btn-primary" tabindex="7">Add Passenger</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-body table-responsive no-padding">
+                                    <table id="myTable" class="table table-hover">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Actions</th>
+                                                <th>Passenger Name</th>
+                                                <th>Pax Type</th>
+                                                <th>Ticket No</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div> <!--/.box-body-->
+
+                        </div>
+
+                        <div class="box box-default">
+                            <div class="box-body">
+                                <h3 class="box-title"><span>Add Itinery Information</span></h3>
+
+                            </div> <!--/.box-->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Flight</label>
+                                            @Html.DropDownList("Flight",
+                                                new SelectList(ViewBag.Flight as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 7 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Flight No.</label>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="FlightNo" tabindex="8" name="FlightNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Class</label>
+                                            @Html.DropDownList("Class",
+                                                new SelectList(ViewBag.Class as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 9 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Baggage</label>
+                                            @Html.DropDownList("Baggage",
+                                                new SelectList(ViewBag.Baggage as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 10 })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Departure</label>
+                                            @Html.DropDownList("Depart",
+                                                new SelectList(ViewBag.Depart as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 11 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Terminal</label>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="DepartTer" tabindex="12" name="DepartTer">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Departure Date</label>
+                                            <input type="text" class="form-control" id="DepartDate" tabindex="13" name="DepartDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Departure Time</label>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="DepartTime" tabindex="14" name="DepartTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Arrive</label>
+                                            @Html.DropDownList("Arrive",
+                                                new SelectList(ViewBag.Arrive as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 15 })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Terminal</label>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="ArriveTer" tabindex="16" name="ArriveTer">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Arrive Date</label>
+                                            <input type="text" class="form-control" id="ArriveDate" tabindex="17" name="ArriveDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Arrive Time</label>
+                                            <input type="text" class="form-control" style="text-transform: uppercase" id="ArriveTime" tabindex="18" name="ArriveTime">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <div>
+                                                <button type="button" id="btnAddItem" onclick="AddItinery()" class="btn btn-primary" tabindex="19">Add Itinery</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-body table-responsive no-padding">
+                                    <table id="myTable2" class="table table-hover">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Actions</th>
+                                                <th>Flight</th>
+                                                <th>Depart</th>
+                                                <th>Date & Time</th>
+                                                <th>Arrive</th>
+                                                <th>Date & Time</th>
+                                                <th>Class</th>
+                                                <th>Baggage</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div> <!--/.box-body-->
+
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" id="btnsubmit" class="btn btn-primary" tabindex="20"><i class="fa fa-save"></i> Submit</button>
+                                    <button onclick="cancelclick();" type="button" tabindex="21" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.col-sm-8 -->
+
+                </div> <!-- /.row -->
+            </div>
+        </section> <!-- /.content-->
+
+    }
+   
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $('#DepartDate').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: true
+        });
+
+        $('#ArriveDate').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: true
+        });
+
+
+        $('#DepartTime').inputmask({
+            mask: "h:s t\\m",
+            placeholder: "HH:MM XM",
+            alias: "datetime",
+            hourFormat: "24"});
+
+        $('#ArriveTime').inputmask({
+            mask: "h:s t\\m",
+            placeholder: "HH:MM XM",
+            alias: "datetime",
+            hourFormat: "24"});
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            //dom: 'lBfrtip',
+            dom: '<"toolbar">frtip',
+            responsive: !0,
+            buttons: [
+
+            ],
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("ETicketPassengersList", "ETickets")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "ETicketCode", "value": $('#ETicketCode').val() })
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "50px",
+                    "render": function (data, type, row) {
+                        return "<a onclick='return DeletePassenger(" + '"' + row[0] + '"' + ");' title='Remove this Entry'>Delete</a>";
+                    }
+                },
+                { "sWidth": "250px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" }
+            ]
+        });
+
+        $('#myTable2').dataTable({
+
+            //dom: 'lBfrtip',
+            dom: '<"toolbar">frtip',
+            responsive: !0,
+            buttons: [
+
+            ],
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("ETicketItineriesList", "ETickets")",
+           "fnServerParams": function (aoData) {
+               aoData.push(
+               { "name": "ETicketCode", "value": $('#ETicketCode').val() })
+           },
+           "bProcessing": true,
+           "aoColumns": [
+               { "sWidth": "50px",
+                   "render": function (data, type, row) {
+                       return "<a onclick='return DeleteItinery(" + '"' + row[0] + '"' + ");' title='Remove this Entry'>Delete</a>";
+                   }
+               },
+               { "sWidth": "100px" },
+               { "sWidth": "100px" },
+               { "sWidth": "150px" },
+               { "sWidth": "100px" },
+               { "sWidth": "150px" },
+               { "sWidth": "75px" },
+               { "sWidth": "75px" }
+           ]
+        });
+
+    });
+
+
+
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+
+    function AddPassenger() {
+        var _ticketcode = $('#ETicketCode').val();
+        var _passengername = $('#PassengerName').val();
+        var _paxtype = $('#PaxType').val();
+        var _ticketno = $('#TicketNo').val();
+
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/ETickets/AddETicketPassenger")',
+            type: 'POST',
+            data: JSON.stringify({ ETicketCode: _ticketcode, PassengerName: _passengername, PaxType : _paxtype, TicketNo: _ticketno }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable').DataTable().ajax.reload();
+                    $('#PassengerName').val("");
+                    $('[tabindex=4]').focus();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+    }
+
+    function DeletePassenger(ticketcode){
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/ETickets/DeleteETicketPassenger")',
+            type: 'POST',
+            data: JSON.stringify({ ETicketCode: ticketcode }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable').DataTable().ajax.reload();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+
+    }
+
+    function AddItinery() {
+        var _ticketcode = $('#ETicketCode').val();
+        var _flight = $('#Flight').val();
+        var _flightno = $('#FlightNo').val();
+        var _depart = $('#Depart').val();
+        var _departter = $('#DepartTer').val();
+        var _departdate = $('#DepartDate').val();
+        var _departtime = $('#DepartTime').val();
+        var _arrive = $('#Arrive').val();
+        var _arriveter = $('#ArriveTer').val();
+        var _arrivedate = $('#ArriveDate').val();
+        var _arrivetime = $('#ArriveTime').val();
+        var _class = $('#Class').val();
+        var _baggage = $('#Baggage').val();
+
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/ETickets/AddETicketItinery")',
+            type: 'POST',
+            data: JSON.stringify({ ETicketCode: _ticketcode, Flight: _flight, FlightNo: _flightno, Depart : _depart, DepartTer : _departter, DepartDate: _departdate, DepartTime: _departtime, Arrive: _arrive, ArriveTer: _arriveter, ArriveDate: _arrivedate, ArriveTime: _arrivetime, Class: _class, Baggage: _baggage }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable2').DataTable().ajax.reload();
+                    //$('#PassengerName').val("");
+                    //$('[tabindex=4]').focus();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+    }
+
+    function DeleteItinery(ticketcode){
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/ETickets/DeleteETicketItinery")',
+            type: 'POST',
+            data: JSON.stringify({ ETicketCode: ticketcode }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable2').DataTable().ajax.reload();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+
+    }
+
+    function cancelclick() {
+        document.location = '@Url.Action("ListETickets", "ETickets")';
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+
+</script>
+
+
+

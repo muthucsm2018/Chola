@@ -1,0 +1,441 @@
+﻿@model Chola.Models.AccountPaymentModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Account Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Account Payment
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Account Payment</li>
+        </ol>
+    </section>
+    @using (Html.BeginForm("AccountPayment", "AccountSales", null, FormMethod.Post, new { id = "AccountPayment_form" }))
+    {
+    <!-- Main content -->
+
+        <section class="content">
+            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+            {
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">×</a>
+                    <h4>Validation Errors</h4>
+                    @Html.ValidationSummary()
+                </div>
+            }
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>
+            <div id="div_error"></div>
+            <div class="row">
+
+                <div id="divadd" class="col-sm-12">
+                    <div class="box box-default">
+
+                        <div class="box-body">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <div class="row">
+                                   
+                                    <div class="col-md-4">
+                                        <label class="control-label">Customer</label>
+                                        @Html.HiddenFor(m => m.TableKey)
+                                        @Html.DropDownList("VendorCode",
+                                            new SelectList(ViewBag.VendorList as System.Collections.IEnumerable, "Value", "Text", Shared.ToString(Model.VendorCode)),
+                                            new { @class = "form-control", @tabindex = 1 })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @if (Shared.ToString(Model.PaymentDate).Length > 0)
+                                            {
+                                                <input type="text" tabindex="2" class="form-control pull-right" id="PaymentDate" name="PaymentDate" value="@Model.PaymentDate.Value.ToString("MM/dd/yyyy")" placeholder="">
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control pull-right" id="PaymentDate" name="PaymentDate" placeholder="">
+                                            }
+
+                                        </div><!-- /.input group -->
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Payment Type</label>
+                                        <div>
+                                            <input type="radio" id="PaymentBy" tabindex="3" name="PaymentBy" class="k-radio" value="CASH" checked="@(Model.PaymentBy != null ? Model.PaymentBy.Equals("CASH") : false)" />
+                                            <label class="k-radio-label" for="PaymentBy">CASH</label>&nbsp;&nbsp;
+                                            <input type="radio" id="PaymentBy" tabindex="4" name="PaymentBy" class="k-radio" value="NETS" checked="@(Model.PaymentBy != null ? Model.PaymentBy.Equals("NETS") : false)" />
+                                            <label class="k-radio-label" for="PaymentBy">NETS</label>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <label class="control-label">Amount</label>
+                                        <input type="text" class="form-control" tabindex="3" id="PaymentAmount" name="PaymentAmount" value="@Model.PaymentAmount" placeholder="Enter amount">
+                                    </div>                                   
+
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" tabindex="4" class="btn btn-primary"><i class="fa fa-save"></i> Submit</button>
+                                    <button type="reset" tabindex="5" class="btn btn-primary"><i class="fa  fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- /.box -->
+                </div> <!-- /.col-sm-8 -->    
+           
+                <div class="box-body">
+                    <div class="row" >
+
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <div>
+                                    @Html.DropDownList("ddvendor",
+                                            new SelectList(ViewBag.VendorList as System.Collections.IEnumerable, "Value", "Text"),
+                                            new { @class = "form-control", @tabindex = 6 })
+                                </div>
+                            </div>
+                        </div>                       
+
+                        <div class="col-sm-2">
+                            <div class="btn-adj">
+                                <button type="button" onclick="GetInfo();" tabindex="8" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> <!--/.box-->
+
+                <div class="box box-default">
+
+                    <div class="box-body">
+                        <div class="row">                            
+                            <div class="col-sm-4">
+                                <div class="m-b-30">
+                                    <h4 class="m-t-0 header-title"><b>Total Sales Amount <label id="NetAmount" name="NetAmount"></label></b></h4>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="m-b-30">
+                                    <h4 class="m-t-0 header-title"><b>Amount Received <label id="Received" name="Received"></label></b></h4>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="m-b-30">
+                                    <h4 class="m-t-0 header-title"><b>Balance Amount <label id="Balance" name="Balance"></label></b></h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" box-body table-responsive no-padding">
+
+                            <table id="myTable" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>PAID By</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div> <!--/.box-body-->
+
+                </div> <!--/.box-->
+            </div>
+        </section> <!-- /.content-->
+    }
+
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $('input[name="reservation"]').daterangepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+        $('#PaymentDate').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: true
+        });
+
+        $('input[name="reservation"]').val(TodayDateRange);
+
+        GetNetAmount();
+
+        $("#PaymentAmount").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        //$.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            dom: 'lBfrtip',
+            responsive: !0,
+            buttons: [
+
+            ],
+            "deferRender": true,
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("AccountPaymentList", "AccountSales")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "VendorCode", "value": $('#ddvendor').val() });
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "50px",
+                    "render": function (data, type, row) {
+                        return "<a onclick='return DeletePayment(" + '"' + row[0] + '"' + ");' title='Remove this Payment Details'>Remove</a>";
+                    }
+                },
+                { "sWidth": "150px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" },
+                { "visible": false }
+            ],
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column( 4 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                // Update footer
+                $( api.column( 4 ).footer() ).html(
+                    'Total '+ total.toFixed(2) + ' $'
+                );
+
+                $('#Received').text(total.toFixed(2));
+
+                total1 = api
+                   .column( 5 )
+                   .data().reduce( function (a, b) {
+                       return intVal(b) ;
+                   }, 0 );
+               
+                $('#Balance').text(String((parseFloat(total1.toFixed(2)) - parseFloat(total)).toFixed(2))); 
+                                           
+            }
+        });
+
+    });
+
+    function GetInfo() {
+        setTimeout(function() {  GetNetAmount(); }, 600);
+        $('#myTable').DataTable().ajax.reload();       
+    }
+
+    function FillVendorsEdit(_vendorcode) {
+
+        $.ajax({
+            url: '@Url.Content("~/AccountSales/GetVendors")',
+            type: 'POST',
+            data: JSON.stringify({ VendorCode: _vendorcode }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    var dropdown = $('#VendorCode');
+                    dropdown.empty();
+
+                    $.each(result.response, function (val, vendors_list) {
+                        dropdown.append($("<option></option>")
+                                .attr("value", vendors_list.Value).text(vendors_list.Text).attr("selected", vendors_list.Selected ));
+                    });
+                }
+                if (result.success === false) {
+                }
+            }
+        });
+    }
+
+    function DeletePayment(Id){
+        if (confirm("Are you sure to delete this Payment?")) {
+            // your deletion code
+            $.ajax({
+                url: '@Url.Content("~/AccountSales/DeleteAccountPayment")',
+                type: 'POST',
+                data: JSON.stringify({ TableKey: Id }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.success === true) {
+                        $('#div_success').html(result.response);
+                        $('#myTable').DataTable().ajax.reload();  
+                    }
+                    if (result.success === false) {
+
+                    }
+                }
+            });
+        }
+        return false;
+       
+
+    }
+
+    function formatAMPM(date) {
+
+        var x = eval("new " + date.slice(1, -1));
+
+        var dd = x.getDate();
+        var mm = x.getMonth()+1; //January is 0!
+
+        var yyyy = x.getFullYear();
+        if(dd<10){
+            dd='0' + dd
+        }
+        if(mm<10){
+            mm='0' + mm
+        }
+        var today = dd + '/' + mm + '/' + yyyy;
+       
+        return today;
+    }
+
+    function GetNetAmount(){
+
+        $.ajax({
+            url: '@Url.Content("~/AccountSales/GetNetAmount")',
+            type: 'POST',
+            data: JSON.stringify({ VendorCode: $('#ddvendor').val() }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#NetAmount').text(result.response);
+                }
+                if (result.success === false) {
+
+                }
+            }
+        });
+    }
+   
+    function TodayDateRange() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if(dd < 10){
+            dd = '0' + dd
+        }
+        if(mm < 10){
+            mm = '0' + mm
+        }
+        var today = dd + '/' + mm + '/' + yyyy;
+        return today + ' | ' + today;
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+
+    function IsNumericEmpty(str) {
+        if (str && str != 0.00)
+            return false;
+        else
+            return true;
+    }
+
+    function returndate()
+    {
+        var _date = '';
+        var str = $('#reservation').val();
+        if(!IsStringEmpty(str)){
+            var startdate = str.split("|")[0];
+            var enddate = str.split("|")[1];
+            if($.trim(startdate) === $.trim(enddate)){
+                _date = str.split("|")[0];
+            }
+            else{
+                _date = str.replace("|", " TO ");
+            }
+        }
+        return _date;
+    }
+
+
+
+</script>
+
+
+

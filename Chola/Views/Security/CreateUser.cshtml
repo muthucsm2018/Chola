@@ -1,0 +1,143 @@
+﻿@model Chola.Models.CreateUserModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+   
+    <section class="content-header">
+        <h1>
+            Create New User
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("QueryUser", "Security")">Users List</a></li>
+            <li class="active">Create New User</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    @using (Html.BeginForm("CreateUser", "Security", null, FormMethod.Post, new { id = "CreateUser_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><span>New User Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">                                   
+                                    <div class="col-md-6">
+                                        <label class="control-label">User Name</label>
+                                        <input type="text" class="form-control" tabindex="1" id="UserName" name="UserName" value="@Model.UserName" placeholder="Enter User Name">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Password</label>
+                                        <input type="text" class="form-control" tabindex="2"  id="Password" name="Password" value="@Model.Password" placeholder="Enter Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" class="form-control" tabindex="3" id="FirstName" name="FirstName" value="@Model.FirstName" placeholder="Enter First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" tabindex="4" id="LastName" name="LastName" value="@Model.LastName" placeholder="Enter Last Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" class="form-control" tabindex="5" id="Email" name="Email" value="@Model.Email" placeholder="Enter Email">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Contact No</label>
+                                        <input type="text" class="form-control" tabindex="6" id="ContactNo" name="ContactNo" value="@Model.ContactNo" data-inputmask='"mask": "9999-9999"' data-mask placeholder="Enter Contact No">
+                                    </div>
+                                </div>
+                            </div>                            
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Role</label><br />
+                                        <div class="col-sm-6">
+                                            @for (int i = 0; i < Model.RoleMaster.Count; i++)
+                                            {
+                                                <div class="">
+                                                    @Html.CheckBoxFor(m => m.RoleMaster[i].Selected, new { @tabindex = "7" })
+                                                    @Html.HiddenFor(m => m.RoleMaster[i].RoleID)
+                                                    @Html.HiddenFor(m => m.RoleMaster[i].RoleName)
+                                                    @Html.LabelFor(m => m.RoleMaster[i].Selected,
+                                                                Model.RoleMaster[i].RoleName, new { @style = "padding-left:5px" })
+                                                </div>
+                                            }
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" class="btn btn-primary" tabindex="8"><i class="fa fa-save"></i> Submit</button>
+                                    <button type="button" id="btncancel" onclick="cancelclick();" tabindex="9" class="btn btn-primary"><i class="fa  fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- /.box -->
+                </div> <!-- /.col-sm-8 -->               
+
+            </div> <!-- /.row -->
+        </section> <!-- /.content-->
+        
+    }
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $("[data-mask]").inputmask();
+    });
+
+    function cancelclick() {
+        document.location = '@Url.Action("QueryUser","Security")';
+    }
+
+   
+</script>
+
+
+

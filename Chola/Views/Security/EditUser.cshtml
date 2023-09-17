@@ -1,0 +1,200 @@
+﻿@model Chola.Models.EditUserModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Update User
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("QueryUser", "Security")">Users List</a></li>
+            <li class="active">Update User</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    @using (Html.BeginForm("EditUser", "Security", null, FormMethod.Post, new { id = "EditUser_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><span>Update User Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+                            <div id="div_error"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">User Name</label>
+                                        <input type="text" class="form-control" id="UserName" readonly="readonly" disabled="disabled" name="UserName" value="@Model.UserName" placeholder="Enter User Name">
+                                        @Html.HiddenFor(x => x.UserName)
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Status</label>
+                                        <div>
+                                            @Html.DropDownList("Status",
+                                                new SelectList(ViewBag.StatusList as System.Collections.IEnumerable, "Value", "Text", Shared.ToString(Model.Status)), 
+                                                new { @class = "form-control", @tabindex = 1 })
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                        <label class="control-label">Password</label>                                        
+                                        <input type="text" class="form-control" id="Password" name="Password" placeholder="Enter Password only for Reset">
+                                        <div class="margin pull-right hidden-xs">
+                                            <button type="button" id="btnreset" onclick="resetclick();" class="btn btn-primary"><i class="fa  fa-ban"></i> Reset Password</button>
+                                        </div>
+                                    </div>*@
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" class="form-control" id="FirstName" tabindex="2" name="FirstName" value="@Model.FirstName" placeholder="Enter First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" id="LastName" tabindex="3" name="LastName" value="@Model.LastName" placeholder="Enter Last Name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" class="form-control" id="Email" tabindex="4" name="Email" value="@Model.Email" placeholder="Enter Email">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Contact No</label>
+                                        <input type="text" class="form-control" id="ContactNo" tabindex="5" name="ContactNo" value="@Model.ContactNo" placeholder="Enter Contact No">
+                                    </div>
+                                </div>
+                            </div>                           
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Role</label><br />
+                                        <div id="rolediv" class="col-sm-6">
+                                            @for (int i = 0; i < Model.RoleMaster.Count; i++)
+                                            {
+                                                <div class="">
+                                                    @Html.CheckBoxFor(m => m.RoleMaster[i].Selected, new { @class = "foo", @tabindex = "6" })
+                                                    @Html.LabelFor(m => m.RoleMaster[i].Selected,
+                                                                Model.RoleMaster[i].RoleName, new { @style = "padding-left:5px" })
+                                                    @Html.HiddenFor(m => m.RoleMaster[i].RoleID)
+                                                    @Html.HiddenFor(m => m.RoleMaster[i].RoleName)
+                                                   
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" class="btn btn-primary" tabindex="7"><i class="fa fa-save"></i> Submit</button>
+                                    <button type="button" id="btncancel" tabindex="8" onclick="cancelclick();" class="btn btn-primary"><i class="fa  fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- /.box -->
+                </div> <!-- /.col-sm-8 -->                
+
+            </div> <!-- /.row -->
+        </section> <!-- /.content-->
+
+    }
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        var isadmin = '@Model.IsAdmin';
+
+        if (isadmin == "True") {
+            $('#rolediv').find('input[type=checkbox]').not(":eq(0)").attr('disabled', true);
+        }
+
+        $('.foo').click(function (e) {
+
+            if ($(this).nextAll().eq(1).text() == "Admin") {
+                if ($(this).prop('checked')) {
+                    $('.foo').attr('checked', false);
+                    $(this).prop('checked', true);
+                    $('.foo').attr('disabled', true);
+                    $(this).prop('disabled', false);
+                }
+                else {
+                    $('.foo').attr('disabled', false);
+
+                }
+            }
+
+        });
+    });
+
+    function cancelclick() {
+        document.location = '@Url.Action("QueryUser","Security")';
+    }
+
+    function resetclick() {
+        var password = $('#Password').val();
+        var username = $('#UserName').val();
+        $.ajax({
+            url: '@Url.Content("~/Security/ResetPassword")',
+            type: 'POST',
+            data: JSON.stringify({ UserName: username, Password: password }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);                   
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);                   
+                }
+            }
+        });
+    }
+
+   
+
+
+</script>
+
+
+

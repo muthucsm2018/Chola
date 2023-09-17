@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Receipt / Tax Invoice</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><img src='@Url.Content("~/AppImages/logo.png")' style="width:100%; max-width:200px;"></td>
+            <td style="line-height: 10px;">
+                
+                <p>BLK-640, ROWELL ROAD, #01-54</p>
+                <p>Singapore - 200640.</p>                
+                <p>Tel: +65-62917747/91137493</p>
+                @*<p>WhatsApp: +65 91137493</p>*@
+                <p>info@cholaholidays.com | www.cholaholidays.com</p>
+                @*<b>OCBC Currnet: 712 558428 001 | POSB Savings: 421 286710</b>*@
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="10">
+        <tr>
+            <td style="text-align: right;">@ViewBag.InvoiceDate</td>
+        </tr>
+    </table>
+    <table cellpadding="25">
+        <tr>
+            <td style="text-align: center;">RECEIPT / TAX INVOICE</td>
+        </tr>
+    </table>
+    
+        <table cellpadding="5" border="1">
+            <tr style="background-color:lightgoldenrodyellow">
+                
+                @*<td><b>@ViewBag.CustomerName</b></td>*@
+                <td><b>Walking Customer</b></td>
+                <td align="right">Invoice No:</td>
+                <td>@ViewBag.InvoiceNo</td>
+            </tr>
+            @*<tr style="background-color:lightgoldenrodyellow">
+                
+                <td>Walking Customer</td>
+                <td></td>
+                <td>10579</td>
+            </tr>*@
+            
+        </table>
+   <br />
+    <table cellpadding="5" border="1">
+        <tr style="background-color:lightgoldenrodyellow">
+            <th>Customers Name</th>
+            <th>Routing</th>
+            
+            <th>Amount</th>
+            <th>Remarks</th>
+        </tr>
+        
+        <tr>
+            <td>@ViewBag.CustomerName</td>
+            <td>@ViewBag.Remarks</td>
+            
+            <td style="text-align: right">@String.Format("{0:n}", ViewBag.Amount)</td>
+            <td style="text-align: center">@ViewBag.Remarks</td>
+        </tr>
+        @*<tr>
+            <td colspan="2" style="text-align: right">Total</td>
+            <td></td>
+            <td style="text-align: right">@String.Format("{0:n}", ViewBag.Total)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right">VAT</td>
+            <td></td>
+            <td style="text-align: right">@String.Format("{0:n}", ViewBag.Vat)</td>
+            <td></td>
+        </tr>*@
+        <tr style="background-color:lightgoldenrodyellow">
+            <td colspan="2" style="text-align: right"><b>Grand Total</b></td>
+            
+            <td style="text-align: right">@String.Format("{0:n}", ViewBag.GrandTotal)</td>
+            <td></td>
+        </tr>
+    </table>
+    <div style="margin-top: 50px; padding: 10px 1%;">
+
+        <table>
+            <tr>
+                <td width="30%"><hr></td>
+                <td></td>
+                <td></td>
+                <td width="30%"><hr></td>
+            </tr>
+            <tr>
+                <td>Passport Received by<br><b>@ViewBag.CustomerName</b><br>&nbsp<br>Date:@DateTime.Now.ToString("dd MMM yyyy hh:mm tt")</td>
+                <td></td>
+                <td></td>
+                <td>Authorised Signature<br>@*<img style="width:150px;height:90px" src='@Url.Content("~/AppImages/iata.png")'>*@</td>
+            </tr>
+
+        </table>
+    </div>
+    <button type="button" id="printpagebutton" class="btn btn-primary btn-xs" onclick="myFunction()">Print</button>
+
+    <script type="text/javascript">
+            function myFunction() {
+                //Get the print button and put it into a variable
+                var printButton = document.getElementById("printpagebutton");
+                //Set the print button visibility to 'hidden'
+                printButton.style.visibility = 'hidden';
+                //Print the page content
+                window.print()
+                //Set the print button to 'visible' again
+                //[Delete this line if you want it to stay hidden after printing]
+                printButton.style.visibility = 'visible';
+            }
+    </script>
+</body>
+
+</html>

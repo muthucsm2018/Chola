@@ -1,0 +1,435 @@
+﻿@model Chola.Models.EditTicketModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Edit Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <!-- Main content -->
+    @using (Html.BeginForm("EditTicket", "Tickets", null, FormMethod.Post, new { id = "EditTicket_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border" style="display:none">
+                            <h3 class="box-title"><span>Update Ticket Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="ContactNo" name="ContactNo" value="aa" style="display:none">
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Invoice No</label><code>Auto</code>
+                                        <input type="text" class="form-control" id="TicketCode" name="TicketCode" value="@Model.TicketCode" readonly="readonly" placeholder="xxxxx">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Account</label>
+                                        <div>
+                                            @Html.DropDownList("RefNo",
+                                                new SelectList(ViewBag.CustomerList as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control", @tabindex = 2 })
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-4">
+                                        <label class="control-label">Company Name</label>
+                                        <div>
+                                            @Html.DropDownList("VendorCode",
+                                                new SelectList(ViewBag.VendorList as System.Collections.IEnumerable, "Value", "Text", Shared.ToString(Model.VendorCode)),
+                                                new { @class = "form-control", @tabindex="1" })
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Due Date</label>
+                                        @if (Shared.ToString(Model.DueDate).Length > 0)
+                                        {
+                                            <input type="text" tabindex="2" class="form-control pull-right" id="DueDate" name="DueDate" value="@Model.DueDate.Value.ToString("MM/dd/yyyy")" placeholder="">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" tabindex="2" class="form-control pull-right" id="DueDate" name="DueDate" placeholder="">
+                                        }
+                                    </div>
+                                    <div class="col-md-4" style="display:none">
+                                       
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Details</label><br>
+                                        <label id="Address1" class="control-label">@Model.Addr1</label><br>
+                                        <label id="Address2" class="control-label">@Model.Addr2</label><br>
+                                        <label id="Address3" class="control-label">@Model.Addr3</label><br>
+                                        <label id="TaxID" class="control-label">@Model.TaxID</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- /.box -->
+
+                        <div id="div_error"></div>
+                        <div class="box box-default">
+                            <div class="box-body">
+                                <h3 class="box-title"><span>Add Customer Details to Ticket</span></h3>
+
+                            </div> <!--/.box-->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Customer Name</label>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="CustomerName" id="CustomerName" tabindex="3" name="CustomerName">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" rows="6" cols="30" style="text-transform: uppercase" placeholder="Description" id="Description" tabindex="4" name="Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Remarks</label>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="Remarks" id="Remarks" tabindex="5" name="Remarks">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Buying Price</label>
+                                            <input type="text" class="form-control" placeholder="BuyingPrice" id="BuyingPrice" tabindex="6" name="BuyingPrice">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Selling Price</label>
+                                            <input type="text" class="form-control" placeholder="SellingPrice" id="SellingPrice" tabindex="7" name="SellingPrice">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <div>
+                                                <button type="button" id="btnAddItem" onclick="AddItem()" class="btn btn-primary" tabindex="8">Add </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="box-body table-responsive no-padding">
+                                    <table id="myTable" class="table table-hover">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Actions</th>
+                                                <th>Customer's Name</th>
+                                                <th>Description</th>
+                                                <th>Remarks</th>
+                                                <th>Buying</th>
+                                                <th>Selling</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <ht></ht>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div> <!--/.box-body-->
+
+                        </div>
+
+                        <div class="box-body">
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" id="btnsubmit" class="btn btn-primary" tabindex="9"><i class="fa fa-save"></i> Submit</button>
+                                    <button onclick="cancelclick();" type="button" tabindex="10" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.col-sm-8 -->
+
+                </div> <!-- /.row -->
+            </div>
+        </section> <!-- /.content-->
+
+    }
+   
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $('#DueDate').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: false
+        });
+
+        $('#VendorCode').change(function () {
+            if (!IsStringEmpty($('#VendorCode').val())) {
+                GetCustomer($(this).val());
+            }
+            else {
+                $('#Address1').val('');
+                $('#Address2').val('');
+                $('#Address3').val('');
+                $('#TaxID').val('');
+            }
+        });
+
+        $('#BuyingPrice').add('#NetAmount').add('#SellingPrice').on('keydown', function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        $("[data-mask]").inputmask();
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            //dom: 'lBfrtip',
+            dom: '<"toolbar">frtip',
+            responsive: !0,
+            buttons: [
+
+            ],
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("TicketItemsList", "Tickets")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "TicketCode", "value": $('#TicketCode').val() })
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "50px",
+                    "render": function (data, type, row) {
+                        return "<a onclick='return DeleteItem(" + '"' + row[0] + '"' + ");' title='Remove this Entry'>Delete</a>";
+                    }
+                },
+                { "sWidth": "100px" },
+                { "sWidth": "250px" },
+                { "sWidth": "175px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" }
+            ],
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column( 5 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                // Update footer
+                $( api.column( 5 ).footer() ).html(
+                    total.toFixed(2) +' $'
+                );
+
+
+                $("div.toolbar").html('<b>Total Amount ' + total.toFixed(2) +' $</b>');
+            }
+        });
+
+    });
+
+    function GetCustomer(documentid) {
+        if (!$('#VendorCode').val()) {
+            return false;
+        }
+        else {
+            $.ajax({
+                url: '@Url.Content("~/Tickets/GetCustomer")',
+                type: 'POST',
+                data: JSON.stringify({ CustomerID: documentid }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.success === true) {
+                        $('#Address1').text(result.Address1);
+                        $('#Address2').text(result.Address2);
+                        $('#Address3').text(result.Address3);
+                        $('#TaxID').text(result.TaxID);
+                    }
+                    if (result.success === false) {
+                        $('#div_success').html(result.response);
+                    }
+                }
+            });
+
+            return true;
+        }
+    }
+
+    function getbillamount() {
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        var _billno = $('#ServiceBillNO').val();
+        $.ajax({
+            url: '@Url.Content("~/Sales/GetBillAmount")',
+            type: 'POST',
+            data: JSON.stringify({ ServiceBillNo: _billno }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#Price').val(result.response);
+                    $('#CustomerName').val(result.CustomerName);
+                    $('#Remarks').val(result.Remarks);
+                    $("#Price").attr("readonly", true);
+
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+    }
+
+
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+
+    function AddItem() {
+        var _ticketcode = $('#TicketCode').val();
+        var _customername = $('#CustomerName').val();
+        var _desc = $('#Description').val();
+        var _remarks = $('#Remarks').val();
+        var _buying = $('#BuyingPrice').val();
+        var _selling = $('#SellingPrice').val();
+
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/Tickets/AddTicketItem")',
+            type: 'POST',
+            data: JSON.stringify({ TicketCode: _ticketcode, CustomerName: _customername, Description : _desc, Remarks: _remarks, BuyingPrice: _buying, SellingPrice: _selling }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable').DataTable().ajax.reload();
+                    $('#CustomerName').val("");
+                    $('#Remarks').val("");
+                    $('#SellingPrice').val("");
+                    $('#BuyingPrice').val("");
+                    $('#Description').val("");
+                    $('[tabindex=1]').focus();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+    }
+
+    function DeleteItem(ticketcode){
+        $('#div_error').removeClass('alert alert-danger');
+        $('#div_error').html('');
+
+        $.ajax({
+            url: '@Url.Content("~/Tickets/DeleteTicketItem")',
+            type: 'POST',
+            data: JSON.stringify({ TicketCode: ticketcode }),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === true) {
+                    $('#div_success').html(result.response);
+                    $('#myTable').DataTable().ajax.reload();
+                }
+                if (result.success === false) {
+                    $('#div_error').addClass('alert alert-danger');
+                    $('#div_error').html(result.response);
+                }
+            }
+        });
+
+    }
+
+    function cancelclick() {
+        document.location = '@Url.Action("ListTickets", "Tickets")';
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+
+</script>
+
+
+

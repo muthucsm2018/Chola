@@ -1,0 +1,65 @@
+.form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.image-centre {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	}
+	
+.profile-user-img {
+    margin: 0 auto;
+    width: 150px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+}
+
+.profile-user-img2 {
+    margin: 0 auto;
+    width: 100px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+}
+
+.modal-header {
+    border-bottom-color: #f4f4f4;
+    background: #f5f5f5;
+	}
+
+.datepicker{
+	z-index:1151 !important;
+	}
+	
+.bootstrap-timepicker-widget.dropdown-menu {
+    padding: 2px 3px 2px 2px;
+    margin-left: 180px;
+	z-index:1151;
+}
+
+.bootstrap1-timepicker-widget.dropdown-menu {
+    padding: 2px 3px 2px 2px;
+    margin-left: 210px;
+    z-index: 1151;
+}
+
+.scroll {
+	overflow-y: scroll; 
+	height: 200px;
+	}
+	
+.btn-adj {
+	margin-top: 25px;
+	}
+	
+.content {
+    min-height: 520px;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+

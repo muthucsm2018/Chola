@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "OverAll Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            OverAll Report
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">OverAll Report</li>
+        </ol>
+    </section>
+
+<section class="content">
+@using (Html.BeginForm("OverAllReport", "Reports", null, FormMethod.Post, new { id = "OverAllReport_form", enctype = "multipart/form-data" }))
+{
+<div class="box box-default">
+    @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert">×</a>
+            <h4>Validation Errors</h4>
+            @Html.ValidationSummary()
+        </div>
+    }
+            
+    <div class="box-body">
+        <h4 class="box-header">Search</h4>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>From To Date</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-left" tabindex="1" id="daterange" name="daterange" value="@ViewBag.Date">
+                    </div><!-- /.input group -->
+                </div><!-- /.form group -->
+            </div>                 
+
+            <div class="col-sm-2">
+                <div class="btn-adj">
+                    <button type="submit" tabindex="2" id="btnsearch" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div> <!--/.box-->
+}
+<!-- Info boxes -->
+<div class="row">
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box ">
+            <span class="info-box-icon bg-purple-gradient"><i class="fa fa-dashboard"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Visa Income</span>
+                <span class="info-box-number">@ViewBag.VisaAmount $</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green-gradient"><i class="fa fa-dashboard"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Ticket Income</span>
+                <span class="info-box-number">@ViewBag.OtherAmount $</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<div class="row" >
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-teal-gradient"><i class="fa fa-dashboard"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Expense</span>
+                    <span class="info-box-number">@ViewBag.TotalExpense $</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-dashboard"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Income</span>
+                    <span class="info-box-number">@ViewBag.TotalAmount $</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+</div><!-- /.content-wrapper -->
+
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        $(function () {           
+
+            $('input[name="daterange"]').daterangepicker({
+               format: 'MM/DD/YYYY' 
+            });
+        });
+
+    });
+
+</script>
+
+
+

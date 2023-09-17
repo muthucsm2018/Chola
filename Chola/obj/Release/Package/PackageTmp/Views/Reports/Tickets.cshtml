@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "Tickets Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Tickets Report
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Tickets Report</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>
+            <div class="box-body">
+                <h4 class="box-header">Search</h4>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>From To Date</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-left" tabindex="1" id="reservation" name="reservation">
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    </div> 
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <div>
+                               @Html.DropDownList("VendorCode",
+                                                new SelectList(ViewBag.VendorList as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="btn-adj">
+                            <button type="button" id="btnsearch" onclick="GetInfo();" tabindex="4" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!--/.box-->
+            <div class="box box-default">
+
+                <div class="box-body">
+                    <div class="box-body table-responsive no-padding">
+
+                        <table id="myTable" class="table table-hover">
+                            <thead>
+                                <tr>                                    
+                                    <th>Invoice No</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Routing / Description</th>
+                                    <th>Remarks</th>
+                                    <th>Net</th>                                    
+                                    <th>Selling</th>                                    
+                                    <th>Profit</th>
+                                    <th>Created By</th>
+                                    <th>Updated Date</th>                                    
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div> <!--/.box-body-->
+            </div> <!--/.box-->
+        </div>
+    </section> <!-- /.content-->
+
+</div><!-- /.content-wrapper -->
+
+
+
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        $('input[name="reservation"]').daterangepicker({
+            format: 'MM/DD/YYYY' 
+        });
+
+        $("input").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                $("#btnsearch").click();
+            }
+        });
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            dom: 'lBfrtip',
+            responsive: !0,
+            buttons: [
+                 {
+                     text: '<i class="fa fa-file-excel-o"></i>' + '&nbsp;' + 'Export Excel',
+                     className: 'btn btn-primary',
+                     extend: 'excel',
+                     title: 'Tickets List',
+                     exportOptions: {
+                         columns: [0, 1, 2, 3, 4, 5, 6, 7,8,9],
+                         orthogonal: 'sort'
+                     }
+                 }                  
+            ],
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("QueryTicketList", "Reports")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "daterange", "value": $('#reservation').val() },
+                { "name": "CustomerName", "value": $('#VendorCode option:selected').text() });
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "100px" },
+                { "sWidth": "100px" },
+                { "sWidth": "150px" },
+                { "sWidth": "250px" },
+                { "sWidth": "200px" },
+                { "sWidth": "150px" },
+                { "sWidth": "150px" },
+                { "sWidth": "150px" },
+                { "sWidth": "150px" },
+                { "sWidth": "150px" }
+            ],
+            "footerCallback": function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                        i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column( 5 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                // Update footer
+                $( api.column( 5 ).footer() ).html(
+                    total.toFixed(2) + '<br/>'+ ' $'
+                );
+                // Total over all pages
+                total1 = api
+                    .column( 6 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                // Update footer
+                $( api.column( 6 ).footer() ).html(
+                    total1.toFixed(2) + '<br/>'+ ' $'
+                );
+                // Total over all pages
+                total2 = api
+                    .column( 7 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                // Update footer
+                $( api.column( 7 ).footer() ).html(
+                    total2.toFixed(2) + '<br/>'+ ' $'
+                );
+
+            }
+        });
+        
+    });
+   
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+  
+
+</script>
+
+
+

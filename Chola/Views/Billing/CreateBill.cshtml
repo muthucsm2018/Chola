@@ -1,0 +1,170 @@
+﻿ @model Chola.Models.CreateTourModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Create Bill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Create New Bill
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="@Url.Action("ListBills", "Billing")">Bills List</a></li>
+            <li class="active">Create New Bill</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    @using (Html.BeginForm("CreateBill", "Billing", null, FormMethod.Post, new { id = "CreateBill_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border" style="display:none">
+                            <h3 class="box-title"><span>New Bill Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Invoice No</label><code>Auto</code>
+                                        <input type="text" class="form-control" id="TourCode" name="TourCode" value="@Model.TourCode" readonly="readonly" placeholder="xxxxx">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Customer Name</label>
+                                        <div>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="CustomerName" id="CustomerName" tabindex="1" name="CustomerName">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Invoice Date</label>
+                                        @if (Shared.ToString(Model.TrxnDate).Length > 0)
+                                        {
+                                            <input type="text" tabindex="2" class="form-control pull-right" id="TrxnDate" name="TrxnDate" value="@Model.TrxnDate.Value.ToString("MM/dd/yyyy")" placeholder="">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" tabindex="2" class="form-control pull-right" id="TrxnDate" name="TrxnDate" placeholder="">
+                                        }
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Remarks</label>
+                                        <div>
+                                            <input type="text" class="form-control" value="" style="text-transform: uppercase" placeholder="Remarks" id="Remarks" tabindex="3" name="Remarks">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>   
+                        
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Buying Price</label>
+                                        <input type="text" class="form-control" placeholder="BuyingPrice" id="BuyingPrice" tabindex="4" name="BuyingPrice" />
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Selling Price</label>
+                                        <input type="text" class="form-control" placeholder="SellingPrice" id="SellingPrice" tabindex="5" name="SellingPrice" />
+                                    </div>
+                                </div>                            
+                                
+                            </div>                      
+
+                        </div> <!-- /.box -->
+                        <div id="div_error"></div>                      
+
+                        <div class="box-body">
+
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" id="btnsubmit" class="btn btn-primary" tabindex="7"><i class="fa fa-save"></i> Submit</button>
+                                    <button onclick="cancelclick();" type="button" tabindex="8" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.col-sm-8 -->
+
+                </div> <!-- /.row -->
+            </div>
+        </section> <!-- /.content-->
+
+    }
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $('#TrxnDate').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: false
+        });
+
+        $('#BuyingPrice').add('#SellingPrice').on('keydown', function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });        
+       
+    });   
+
+    function cancelclick() {
+        document.location = '@Url.Action("ListBills", "Billing")';
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }   
+
+</script>
+
+
+

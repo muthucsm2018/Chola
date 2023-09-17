@@ -1,0 +1,168 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tax Invoice</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        table {
+            vertical-align: middle;
+        }
+
+        td {
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table width="100%" cellspacing="0">
+        <tr>
+            <td width="30%">
+                <img src="@Url.Content("~/AppImages/logo.png")" width="450px;" />
+            </td>
+            <td width="80%" align="right">
+                <h2 style="font-size: 22px;">CHOLA HOLIDAYS PTE LTD</h2>
+                <h4 style="line-height: 22px;font-size: 16px; font-weight: 300;">
+                    BLK-640, ROWELL ROAD, #01-54</br>
+                    Singapore - 200640.</br>
+                    Tel: +65-62917747/91137493
+                </h4>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" cellspacing="0">
+        <tr>
+            <td colspan="3" style="vertical-align: top; font-size: 20px;" align="center">
+                <b>TAX INVOICE</b>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 20px;" width="60%">To<br><b>@ViewBag.CustomerName</b></td>
+            <td align="left" width="20%">Invoice No.<br>Date</td>
+            <td align="left" width="20%">: <b>@ViewBag.InvoiceNo</b><br>: @ViewBag.InvoiceDate</td>
+        </tr>
+    </table>
+    <table style="width:100%" cellspacing="0">
+        <thead>
+            <tr>
+                <td width="5%" align="center" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 10px 10px 0;"><b>SI.No</b></td>
+                <td width="30%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Name/Particular</b></td>
+                <td width="25%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Description</b></td>
+                <td width="30%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Pnr/Ticket Number</b></td>
+                <td width="10%" align="right" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Amount</b></td>
+            </tr>
+        </thead>
+
+        <tbody style="height:100px;">
+            @{int idx = 1;}
+            @foreach (Chola.Models.TicketCustomersListModel mod in ViewBag.Customers)
+            {
+                <tr>
+                    <td align="center">@idx</td>
+                    <td>@mod.CustomerName</td>
+                    <td>@Html.Raw(mod.Description)</td>
+                    <td>@mod.Remarks</td>
+                    <td align="right">$ @String.Format("{0:n}", mod.SellingPrice)</td>
+                </tr>
+                idx++;
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td style="vertical-align: bottom; padding-bottom: 20px;" colspan="2">SGD @ViewBag.AmountinWords Only</td>
+                <td style="vertical-align: bottom; padding-bottom: 20px;" align="right">Gross.Total</td>
+                <td align="right" style="padding-bottom: 20px; vertical-align: bottom; line-height: 22px; font-size: 20px; font-weight: 700;border-top: 1px #000 solid;">$ @String.Format("{0:n}", ViewBag.Amount)</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    @*<table style="width:100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="20%" align="left" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>From</b></td>
+                <td width="20%" align="left" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>To</b></td>
+                <td width="15%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Flight</b></td>
+                <td width="10%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Class</b></td>
+                <td width="10%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Dep.Date</b></td>
+                <td width="10%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Dep.Time</b></td>
+                <td width="10%" style="border-top: 1px #000 solid; border-bottom: 1px #000 solid; padding: 10px 0 10px 0;"><b>Arv.Time</b></td>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td align="left">Singapore(SIN)</td>
+                <td align="left">Penang(PEN)</td>
+                <td>TZ TR426</td>
+                <td>Y</td>
+                <td>15/11/2022</td>
+                <td>0800</td>
+                <td>0925</td>
+            </tr>
+            <tr>
+                <td align="left">Singapore(SIN)</td>
+                <td align="left">Penang(PEN)</td>
+                <td>TZ TR426</td>
+                <td>Y</td>
+                <td>15/11/2022</td>
+                <td>0800</td>
+                <td>0925</td>
+            </tr>
+
+        </tbody>
+    </table>*@
+    <br><br>
+    <table width="100%" cellspacing="0">
+        <tr>
+            <td colspan="2" style="line-height: 20px; border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; padding-top: 10px;"> CHOLA HOLIDAYS Bank Account details:</td>
+        </tr>
+        <tr>
+            <td width="25%" style="line-height: 20px; border-left: 1px solid #000; border-bottom: 1px solid #000; font-size: 12px;">
+                ACCOUNT NAME <br>
+                ACCOUNT NUMBER <br>
+                ACCOUNT NAME <br>
+                ACCOUNT NUMBER <br>
+                PAY NOW UEN
+            </td>
+            <td align="left" style="line-height: 20px; border-right: 1px solid #000; border-bottom: 1px solid #000;font-size: 12px;">
+                - OCBC Current Account<br>
+                - 712 558428 001<br>
+                - DBS CURRENT Account<br>
+                - 074 903312 6<br>
+                - UEN-201801722W
+               
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td width="40%" style="padding-top: 10px;">
+                E & O.E, Terms & Conditions<br><br>REMARK:<br>
+                Pls do a fast transfer if you are making payment through online transfer. Thanks.
+            </td>
+            <td style="font-size: 18px;" align="right"><b><small>For</small> CHOLA HOLIDAYS PTE LTD</b><br></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="right">Authorized Signature</td>
+        </tr>
+    </table>
+
+</body>
+</html>

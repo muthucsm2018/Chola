@@ -1,0 +1,770 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Dash Board Daily
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dash Board Daily</li>
+        </ol>
+    </section>
+   
+            <section class="content">
+                <!-- Info boxes -->
+                <div class="row">
+                    <div style="display:none" class="col-md-2 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">No of InProcess <br />Applications</span>
+                                <span class="info-box-number">@ViewBag.NoofCollections</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div style="display:none" class="col-md-2 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">No of Delivered <br />Applications</span>
+                                <span class="info-box-number">@ViewBag.NoofDelivered</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-blue"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tours <br /> Income</span>
+                                <span class="info-box-number">@ViewBag.VisaAmount $</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Ticket <br /> Income</span>
+                                <span class="info-box-number">@ViewBag.OtherAmount $</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-3 col-sm-6 col-xs-12" >
+                        <div class="info-box">
+                            <span class="info-box-icon bg-teal"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Expense <br/> &nbsp;</span>
+                                <span class="info-box-number">@ViewBag.TotalExpense $</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-yellow"><i class="fa fa-dashboard"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Income <br/> &nbsp;</span>
+                                <span class="info-box-number">@ViewBag.TotalAmount $</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <div class="row" style="display:none">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">In Process Application List</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-wrench"></i>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class=" box-body table-responsive no-padding">
+
+                                            <table id="myTable" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Action</th>
+                                                        <th>Inv No</th>
+                                                        <th>Visa Type</th>
+                                                        <th class="sum">Charge</th>
+                                                        <th>Customer </th>
+                                                        <th>Passport </th>
+                                                        <th>Status</th>
+                                                        <th>Date</th>
+                                                        <th>Barcode</th>
+                                                        <th>Invoice</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!-- /.row -->
+                <div class="row" style="display:none">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Today Miscellaneous List</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-wrench"></i>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class=" box-body table-responsive no-padding">
+
+                                            <table id="myTable1" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Action</th>
+                                                        <th>Service Name</th>
+                                                        <th class="sum">Charge</th>
+                                                        <th>Remarks</th>
+                                                        <th>Created By</th>
+                                                        <th>Created Date</th>
+                                                        <th>Updated By</th>
+                                                        <th>Updated Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!-- /.row -->
+                <div class="row" style="display:none">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Today Expense List</h3>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-wrench"></i>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class=" box-body table-responsive no-padding">
+
+                                            <table id="myTable2" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Action</th>
+                                                        <th>Expense Name</th>
+                                                        <th class="sum">Charge</th>
+                                                        <th>Remarks</th>
+                                                        <th>Created By</th>
+                                                        <th>Created Date</th>
+                                                        <th>Updated By</th>
+                                                        <th>Updated Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </section>
+
+        </div><!-- /.content-wrapper -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Bill Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Invoice Number</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="InvoiceNumber" />
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="control-label">Visa Type</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="DocumentName" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Passport Number</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="PassportNumber" />
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="control-label">Customer Name</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="CustomerNameModal" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Contact No</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="ContactNo" />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="control-label">Nationality</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="Nationality" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Visa Type</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="VisaType" />
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="control-label">Duration</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="Duration" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Bill Date</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="TransactionDate" />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="control-label">Delivery Date</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="DeliveryDate" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Status</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="StatusName" />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="control-label">Charge</label>
+                                    <input type="text" class="form-control" disabled="disabled" id="BillAmount" />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="InvoiceNoPending"></h4>
+                        <input type="hidden" id="billidmodal" name="billidmodal" />
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <label class="control-label">Update status</label>
+                                    @Html.DropDownList("ddstatusmodal",
+                                                new SelectList(ViewBag.StatusList as System.Collections.IEnumerable, "Value", "Text"),
+                                                new { @class = "form-control" })
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnsavepending" onclick="SaveStatus();" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- page script -->
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+
+                var tabindex = 1;
+                $('[tabindex=' + tabindex + ']').focus();
+
+                $('#BarCodeNo').keyup(function(){
+                    $('#btnsearch').click();
+                });
+
+                $.fn.dataTable.ext.errMode = 'throw';
+
+                $('#myTable').dataTable({
+
+                    dom: 'lBfrtip',
+                    responsive: !0,
+                    buttons: [
+                         {
+                             text: '<i class="fa fa-file-excel-o"></i>' + '&nbsp;' + 'Export Excel',
+                             className: 'btn btn-primary',
+                             extend: 'excel',
+                             title: 'Bills List',
+                             exportOptions: {
+                                 columns: [1, 2, 3, 4, 5, 6, 7]
+                             }
+                         }
+                    ],
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    //"order": [[4, "desc"]],
+                    "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+                    "sAjaxSource": "@Url.Action("QueryBillList", "Home")",
+                    "fnServerParams": function (aoData) {
+                        aoData.push(
+                        { "name": "BarCodeNo", "value": $('#BarCodeNo').val() },
+                        { "name": "InvoiceNo", "value": $('#InvoiceNo').val() },
+                        { "name": "CustomerName", "value": $('#CustomerName').val() },
+                        { "name": "PassportNo", "value": $('#PassportNumber').val() },
+                        { "name": "Status", "value": $('#ddstatus').val() });
+                    },
+                    "bProcessing": true,
+                    "aoColumns": [
+
+                        { "sWidth": "100px",
+                            "render": function (o) {
+
+                                return "<button type='button' id='btnview' onclick='ViewClick(" + o + ");' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal'>View</button>" + " | " +
+
+                                "<a class='btn btn-primary btn-xs' href='../Billing/EditBill?BillId=" + o + "'>Update</a>" ;
+                            }
+                        },
+                        { "sWidth": "100px" },
+                        { "sWidth": "300px" },
+                        { "sWidth": "50px" },
+                        { "sWidth": "150px" },
+                        { "sWidth": "100px" },
+                        {
+                            "sWidth": "100px",
+                            "render": function (data, type, row) {
+                                if (data == 'InProcess') {
+                                    return '<button type="button" id="btnpending" onclick="PendingClick(' + row[0] + ');" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal1">In-progress</button>';
+                                }
+                                else if (data == 'Ready') {
+                                    return '<button type="button" id="btnready" onclick="PendingClick(' + row[0] + ');" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal1">Ready</button>';
+                                }
+                                else {
+                                    return data;
+                                }
+
+                            }
+                        },
+                        { "sWidth": "100px" },
+                        { "sWidth": "50px",
+                            "render": function (o) {
+                                return "<button type='button' id='btnbarcode' onclick='BarcodeClick(" + o + ");' class='btn btn-primary btn-xs'>Barcode</button>";
+                            }
+                        },
+                        { "sWidth": "50px",
+                            "render": function (o) {
+                                return "<button type='button' id='btninvoice' onclick='InvoiceClick(" + o + ");' class='btn btn-primary btn-xs'>Invoice</button>";
+                            }
+                        }
+                    ],
+                    "footerCallback": function ( row, data, start, end, display ) {
+                        var api = this.api(), data;
+
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function ( i ) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '')*1 :
+                                typeof i === 'number' ?
+                                i : 0;
+                        };
+
+                        // Total over all pages
+                        total = api
+                            .column( 3 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+
+                        // Total over this page
+                        pageTotal = api
+                            .column( 3, { page: 'current'} )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+
+                        // Update footer
+                        $( api.column( 3 ).footer() ).html(
+                            total + ' $'
+                        );
+                    }
+                });
+
+                $('#myTable1').dataTable({
+
+                    dom: 'lBfrtip',
+                    responsive: !0,
+                    buttons: [
+                         {
+                             text: '<i class="fa fa-file-excel-o"></i>' + '&nbsp;' + 'Export Excel',
+                             className: 'btn btn-primary',
+                             extend: 'excel',
+                             title: 'Miscellaneous List',
+                             exportOptions: {
+                                 columns: [1, 2, 3, 4, 5, 6, 7]
+                             }
+                         }
+                    ],
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    //"order": [[4, "desc"]],
+                    "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+                    "sAjaxSource": "@Url.Action("QueryEntryList", "Home")",
+                    "fnServerParams": function (aoData) {
+                        aoData.push(
+                        { "name": "OthersTypeCode", "value": '' } );
+                    },
+                    "bProcessing": true,
+                    "aoColumns": [
+                        { "sWidth": "100px",
+                            "render": function (o) {
+
+                                return "<a href='../Miscellaneous/EditEntry?EntryId="
+                                           + o + "'>Edit</a>" ;
+                                //+ " | " + "<a onclick='return removeclick(" + '"' + o + '"' + ");' title='Remove this PatientID Details'>Delete</a>";
+
+                            }
+                        },
+                        { "sWidth": "200px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "200px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" }
+                    ],
+                    'initComplete': function (settings, json){
+                        this.api().columns('.sum').every(function(){
+                            var column = this;
+                            if ( json.aaData.length === 0 ) {}
+                            else{
+                                var sum = column
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return parseInt(a, 10) + parseInt(b, 10);
+                                    });
+
+                                $(column.footer()).html('Total: ' + sum);
+                            }
+                        });
+                    }
+                });
+
+                $('#myTable2').dataTable({
+
+                    dom: 'lBfrtip',
+                    responsive: !0,
+                    buttons: [
+                         {
+                             text: '<i class="fa fa-file-excel-o"></i>' + '&nbsp;' + 'Export Excel',
+                             className: 'btn btn-primary',
+                             extend: 'excel',
+                             title: 'Expense List',
+                             exportOptions: {
+                                 columns: [1, 2, 3, 4, 5, 6, 7]
+                             }
+                         }
+                    ],
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    //"order": [[4, "desc"]],
+                    "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+                    "sAjaxSource": "@Url.Action("QueryExpenseList", "Home")",
+                    "fnServerParams": function (aoData) {
+                        aoData.push(
+                        { "name": "ExpenseName", "value": '' } );
+                    },
+                    "bProcessing": true,
+                    "aoColumns": [
+                        { "sWidth": "100px",
+                            "render": function (o) {
+
+                                return "<a href='../Expense/EditExpense?ExpenseCode="
+                                           + o + "'>Edit</a>" ;
+                                //+ " | " + "<a onclick='return removeclick(" + '"' + o + '"' + ");' title='Remove this PatientID Details'>Delete</a>";
+
+                            }
+                        },
+                        { "sWidth": "200px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "200px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" },
+                        { "sWidth": "100px" }
+                    ],
+                    'initComplete': function (settings, json){
+                        this.api().columns('.sum').every(function(){
+                            var column = this;
+                            if ( json.aaData.length === 0 ) {}
+                            else{
+                                var sum = column
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return parseInt(a, 10) + parseInt(b, 10);
+                                    });
+
+                                $(column.footer()).html('Total: ' + sum);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            function GetInfo() {
+                $('#myTable').DataTable().ajax.reload();
+            }
+
+            function SaveStatus() {
+
+                var billid = $('#billidmodal').val();
+                var status =  $('#ddstatusmodal').val();
+
+                $.ajax({
+                    url: '@Url.Content("~/Billing/UpdateBillStatus")',
+                    type: 'POST',
+                    data: JSON.stringify({ BillId: billid, Status: status  }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.success === true) {
+                            $('#myTable').DataTable().ajax.reload();
+                            $('#myModal1').modal('hide');
+                            location.reload();
+                        }
+                        if (result.success === false) {
+                            $('#myModal1').modal('show');
+                        }
+                    }
+                });
+            }
+
+            function ViewClick(trxnid) {
+                $.ajax({
+                    url: '@Url.Content("~/Billing/GetBillDetails")',
+                    type: 'POST',
+                    data: JSON.stringify({ BillId: trxnid }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.success === true) {
+                            var model = result.response;
+                            $('#myModal').find('#InvoiceNumber').val(model.InvoiceNumber);
+                            $('#myModal').find('#DocumentName').val(model.DocumentName);
+                            $('#myModal').find('#PassportNumber').val(model.PassportNumber);
+                            $('#myModal').find('#CustomerNameModal').val(model.CustomerName);
+                            $('#myModal').find('#ContactNo').val(model.ContactNo);
+                            $('#myModal').find('#Nationality').val(model.Nationality);
+                            $('#myModal').find('#VisaType').val(model.VisaType);
+                            $('#myModal').find('#Duration').val(model.Duration);
+                            $('#myModal').find('#StatusName').val(model.StatusName);
+                            $('#myModal').find('#TransactionDate').val(model.TransactionDateDisplay);
+                            $('#myModal').find('#DeliveryDate').val(model.DeliveryDateDisplay);
+                            $('#myModal').find('#BillAmount').val(model.PaidAmount);
+
+                        }
+                        if (result.success === false) {
+
+                        }
+                    }
+                });
+            }
+
+            function PendingClick(trxnid) {
+                $.ajax({
+                    url: '@Url.Content("~/Billing/GetBillDetails")',
+                    type: 'POST',
+                    data: JSON.stringify({ BillId: trxnid }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.success === true) {
+                            var model = result.response;
+                            $('#myModal1').find('#InvoiceNoPending').html('Invoice No: ' + model.InvoiceNumber);
+                            $('#myModal1').find('#billidmodal').val(trxnid);
+
+                        }
+                        if (result.success === false) {
+
+                        }
+                    }
+                });
+            }
+
+            function BarcodeClick(billid) {
+                var url = '@Url.Content("~/Billing/Barcode")' + '?BillId=' + billid;
+                window.open(url, window,'dialogHeight:450px;dialogWidth:300px;edge:Raised;center:Yes;help:No;resizable:No;status:No;scroll:Yes;');
+            }
+
+            function InvoiceClick(billid) {
+                var url = '@Url.Content("~/Billing/Invoice")' + '?BillId=' + billid;
+                window.open(url, window,'dialogHeight:750px;dialogWidth:400px;edge:Raised;center:Yes;help:No;resizable:No;status:No;scroll:Yes;');
+            }
+
+        </script>
+
+
+

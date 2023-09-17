@@ -1,0 +1,205 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>E-Ticket Itinerary</title>
+    <link href="@Url.Content("~/InvoiceETicket.css")" rel="stylesheet" />
+    
+</head>
+
+<body>
+
+    <div class="page">
+        <table style="border:none;margin-bottom:0px">
+            <tr>
+                <td style="padding-top: 5px;"><img src='@Url.Content("~/AppImages/logo.png")' align="left" style="padding-left: 5px;"></td>
+                <td style="padding-top: 10px;"><img src='@Url.Content("~/AppImages/" + ViewBag.Flight + ".png")' align="right" style="padding-right: 20px;padding-bottom:5px;"></td>
+            </tr>
+        </table>
+       
+        <div class="subpage">
+            <div>
+                <h3 class="eticket-title">E-Ticket Itinerary</h3>
+            </div>
+            <div>
+                <p>Dear <b>@ViewBag.CustomerName,</b></p>
+                <p>
+                    Thank you for using our online booking service.
+                </p>
+                <p>
+                    Please find your attached eTicket in PDF. Kindly note, that you will be required to carry a printout of your eTicket accompanied with a valid photo identification to enter the airport and for check-in.
+                </p>
+            </div>
+            <!--Reservation Status-->
+            <div>
+                <h3 class="eticket-other-title">Reservation Status</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="title-p">STATUS</p>
+                                <h2 class="status-title">Confirmed</h2>
+                            </td>
+                            <td class="r-l-br">
+                                <p class="title-p">Reference No.</p>
+                                <h2 class="ref-title">@ViewBag.RefNo</h2>
+                            </td>
+                            <td>
+                                <p class="title-p">Airline PNR</p>
+                                <h2 class="ref-pnr">@ViewBag.AirlinePNR</h2>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--End Reservation Status-->
+            <!--Passanger Details-->
+            <div>
+                <h3 class="eticket-other-title">Passanger Details</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="b-br" rowspan="2">
+                                <p class="title-p">SI No.</p>
+                            </th>
+                            <th class="r-l-br b-br" colspan="2">
+                                <p class="title-p">Passanger Details</p>
+                            </th>
+                            <th class="b-br" rowspan="2">
+                                <p class="title-p">Ticket Number</p>
+                            </th>
+                        </tr>
+                        <tr>
+
+                            <th class="r-l-t-br b-br">
+                                <p class="title-p">Name</p>
+                            </th>
+                            <th class="r-l-t-br b-br">
+                                <p class="title-p">Pay Type</p>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int idx = 1;}
+                        @foreach (Chola.Models.ETicketPassengerListModel mod in ViewBag.Passengers)
+                        {
+                            <tr>
+                                <td class="b-br"><p class="p16 ft11">@idx</p></td>
+                                <td class="r-l-t-br b-br"><p class="p17 ft11">@mod.PassengerName</p></td>
+                                <td class="r-l-t-br b-br"><p class="p15 ft11">@mod.PaxType</p></td>
+                                <td class="b-br"><p class="p15 ft11" style="font-weight:bold">@mod.TicketNo</p></td>
+                            </tr>
+                            idx++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!--End Passanger Details-->
+            <!--Detailed Itenery-->
+            <div>
+                <h3 class="eticket-other-title">Detailed Itenery</h3>
+                <table border=1 frame=void rules=rows>
+                    <thead>
+                        <tr>
+                            <th>
+                                <p class="title-p">Flight</p>
+                            </th>
+                            <th class="r-l-br">
+                                <p class="title-p">Depart</p>
+                            </th>
+                            <th class="r-l-br">
+                                <p class="title-p">Arrive</p>
+                            </th>
+                            <th class="r-l-br">
+                                <p class="title-p">Class</p>
+                            </th>
+                            <th>
+                                <p class="title-p">Baggage</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Chola.Models.ETicketItineryListModel mod in ViewBag.Itineries)
+                        {
+                            <tr>
+                                <td>@mod.Flight</td>
+                                <td class="r-l-br">@Html.Raw(mod.Depart)</td>
+                                <td class="r-l-br">@Html.Raw(mod.Arrive)</td>
+                                <td class="r-l-br">@mod.Class</td>
+                                <td>@mod.Baggage</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <!--End Detailed Itenery-->
+            <!--Rules and Regulation-->
+            <div>
+                <h3 class="rules-title">Rules and Regulation</h3>
+                <ul>
+                    <li>
+                        <b>Passenger ID:</b>
+                        All passengers must produce a valid photo identification proof at the time of check in.
+                    </li>
+                    <li>
+                        <b>Flight Timings:</b>
+                        Flight Timings are subject to change without prior notice. Please recheck with the carrier prior to departure.
+                    </li>
+                    <li>
+                        <b>Security Screening:</b>
+                        Guests will be subjected to a security screening prior to boarding the aircraft. This is mandatory per Indian Regulations.
+                    </li>
+                    <li>
+                        <b>Domestic Flights:</b>
+                        For flights within India Check-in counters open 3 hours prior to departure of flights and close 1 hour prior to departure of flights. You may be deniedboarding if you do not report in time.
+                    </li>
+                    <li>
+                        <b>International Flights:</b>
+                        For International flights Check-in usually starts 3 hours prior to departure, and Check-in counters will be closed 75 minutes before departure time forall classes of guests.
+                    </li>
+                    <li>
+                        <b>Cancellation:</b>
+                        For Fare Rules / Cancellation policy- refer to fare rules laid by the carrier.
+                    </li>
+                    <li>
+                        Terms and Conditions of
+                        <b>“Travel and Carrier Liability Notices”</b>
+                        can be requested from the Travel Agency or the transporting Carrier.
+                    </li>
+                    <li>While compiling the all above information, we have endeavored to ensure that all information is correct. However, no guarantee or representation is made to the accuracy orcompleteness of the information contained here. This information is subject to changes by airlines without notice.</li>
+
+                </ul>
+            </div>
+            <!--End Rules and Regulation-->
+            
+
+        </div>
+        <table class="footer" style="width: 100%;border:none">
+           <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/pin.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">BLK-640, ROWELL ROAD, #01-54,</b> <br /><b style="color:#6f6f6f">Singapore - 200640.</b></td>
+                <td rowspan="4"><img src='@Url.Content("~/AppImages/footer.jpg")' align="right"></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/mobile.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">+65-91137493 | +65-98119985 </b><br /><b style="color:#6f6f6f">+65-62917747</b></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/email.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">info@cholaholidays.com</b></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/web.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">www.cholaholidays.com</b></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

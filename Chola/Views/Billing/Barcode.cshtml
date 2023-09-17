@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />   
+    <title>Chola Barcode Generator</title>
+</head>
+<body>
+    <div>
+        <img src="@ViewBag.BarcodeImage" /><br />
+        <button type="button" id="printpagebutton"  class="btn btn-primary btn-xs" onclick="myFunction()">Print</button>
+    </div>
+    <script type="text/javascript">
+        function myFunction() {
+            //Get the print button and put it into a variable
+            var printButton = document.getElementById("printpagebutton");
+            //Set the print button visibility to 'hidden' 
+            printButton.style.visibility = 'hidden';
+            //Print the page content
+            window.print()
+            //Set the print button to 'visible' again 
+            //[Delete this line if you want it to stay hidden after printing]
+            printButton.style.visibility = 'visible';
+        }
+    </script>
+</body>
+
+</html>

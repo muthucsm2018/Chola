@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Expense List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Expense List
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Expense List</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>
+            <div class="box-body">
+                <h4 class="box-header">Search</h4>
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Expense Name</label>
+                            <input type="text" class="form-control" id="ExpenseName" tabindex="1" name="ExpenseName" placeholder="Enter expense name">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="btn-adj">
+                            <button type="button" id="btnsearch" tabindex="2" onclick="GetInfo();" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!--/.box-->
+            <div class="box box-default">
+
+                <div class="box-body">
+                    <div class=" box-body table-responsive no-padding">
+
+                        <table id="myTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Expense Name</th>
+                                    <th>Charge</th>
+                                    <th>Remarks</th>
+                                    <th>Entry Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div> <!--/.box-body-->
+            </div> <!--/.box-->
+    </section> <!-- /.content-->
+
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+
+        $("select").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                $("#btnsearch").click();
+            }
+        });
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            dom: 'lBfrtip',
+            responsive: !0,
+            buttons: [
+                 {
+
+                 }
+            ],
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,            
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("QueryExpenseList", "Expense")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "ExpenseName", "value": $('#ExpenseName').val() } );
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "100px",
+                    "render": function (o) {
+
+                        return "<a href='../Expense/EditExpense?ExpenseCode="
+                                   + o + "'>Edit</a>" ;                            
+
+                    }
+                },
+                { "sWidth": "200px" },
+                { "sWidth": "100px" },
+                { "sWidth": "200px" },
+                { "sWidth": "100px" }
+            ]
+        });
+    });
+
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+
+</script>
+
+
+

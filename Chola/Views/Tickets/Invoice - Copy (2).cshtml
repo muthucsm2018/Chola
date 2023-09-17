@@ -1,0 +1,123 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Invoice</title>
+    <link href="@Url.Content("~/Invoice.css")" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="page">
+        <table>
+            <tr>
+                <td style="padding-top: 10px;"><img src='@Url.Content("~/AppImages/logo.png")' align="left" style="padding-left: 5px;"></td>
+                <td style="padding-top: 10px;"><img src='@Url.Content("~/AppImages/STBlogo345.jpg")' align="right" style="padding-right: 25px;"><span class="bottom-right">LIC NO: 03152</span></td>
+            </tr>
+        </table>
+
+        <div class="subpage">
+            <table>
+                <tr>
+                    <td class="invoice"><b>INVOICE<br><span style="font-size: 20px;"># @ViewBag.InvoiceNo</span></b></td>
+                </tr>
+            </table>
+            <table style="width: 100%; margin: auto; margin-top: 15px;">
+                <tr>
+                    <td rowspan="4" style="line-height: 30px; width: 60%"><b>CHOLA HOLIDAYS PTE LTD</b><br>BLK-640, ROWELL ROAD, #01-54<br>Singapore - 200640.<br>Tel: +65-62917747/91137493 </td>
+                    <td class="right-align" style="width: 20%">Date:</td>
+                    <td class="right-align"><span style="padding-right: 10px; width: 10%">@ViewBag.InvoiceDate</span></td>
+                </tr>
+                <tr>
+                    <td class="right-align">Payment Terms: </td>
+                    <td class="right-align"><span style="padding-right: 10px;">CASH</span></td>
+                </tr>
+                <tr>
+                    <td class="right-align">Due Date: </td>
+                    <td class="right-align"><span style="padding-right: 10px;">@ViewBag.DueDate</span></td>
+                </tr>
+                <tr>
+                    <td class="right-align" style="background: #f1f1f1; padding-top: 10px;">Balance Due: </td>
+                    <td class="right-align" style="background: #f1f1f1; padding-top: 10px;"><span style="padding-right: 10px;">$ @String.Format("{0:n}", ViewBag.Amount)</span></td>
+                </tr>
+            </table>
+
+            <table style="width: 100%; margin: auto; margin-top: 5px;">
+                <tr>
+                    <td style="line-height: 30px; width: 60%"><span style="color: #6f6f6f;">Bill To</span><br><b>@ViewBag.CustomerName</b></td>
+                </tr>
+            </table>
+
+            <table cellpadding="5" style="width: 100%; margin: auto; margin-top: 5px;">
+                <tr>
+                    <th width="60%" style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;"><b>Customer Name</b></td>
+                    <th width="10%">Description</td>
+                    <th width="15%">Remarks</td>
+                    <th width="15%" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Amount</td>
+                </tr>
+            @foreach (Chola.Models.TicketCustomersListModel mod in ViewBag.Customers)
+            {
+                <tr>
+                    <td>@mod.CustomerName</td>
+                    <td>@Html.Raw(mod.Description)</td>
+                    <td>@mod.Remarks</td>
+                    <td>$ @String.Format("{0:n}", mod.SellingPrice)</td>
+                </tr>              
+            }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td style="padding-top: 50px;">Subtotal:</td>
+                    <td style="padding-top: 50px;">$ @String.Format("{0:n}", ViewBag.Amount)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td>$ @String.Format("{0:n}", ViewBag.Amount)</td>
+                </tr>
+
+            </table>
+
+        </div>
+        <table class="footer" style="width: 100%;">
+            <tr>
+                <td colspan="3"><span style="color: #6f6f6f; line-height: 30px;">Note:</span><br>This is Computer generated Invoice, No Signature required.</td>
+            </tr>
+            @*<tr>
+                <td colspan="3"><span style="color: #6f6f6f; line-height: 50px;"></span></td>
+            </tr>*@
+            <tr>
+                <td colspan="3" style="line-height: 30px; text-align:center;">!!! Thank you for Choosing CHOLA HOLIDAY PTE LTD !!!</td>
+            </tr>
+            @*<tr>
+                <td colspan="3"><span style="color: #6f6f6f; line-height: 50px;"></span></td>
+            </tr>*@
+
+            @*<tr><td colspan="3" align="left" style="padding-left:0px;padding-bottom:-5px"><img src='@Url.Content("~/AppImages/footer1.jpg")' style="width:842px;"></td></tr>*@
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/pin.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">BLK-640, ROWELL ROAD, #01-54,</b> <br /><b style="color:#6f6f6f">Singapore - 200640.</b></td>
+                <td rowspan="4"><img src='@Url.Content("~/AppImages/footer.jpg")' align="right"></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/mobile.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">+65-91137493 | +65-98119985 </b><br /><b style="color:#6f6f6f">+65-62917747</b></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/email.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">info@cholaholidays.com</b></td>
+            </tr>
+            <tr>
+                <td style="width: 5px; padding-bottom: 10px;"><img src='@Url.Content("~/AppImages/web.png")' align="center"></td>
+                <td style="padding-bottom: 10px;"><b style="color:#6f6f6f">www.cholaholidays.com</b></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

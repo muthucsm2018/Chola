@@ -1,0 +1,204 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Salary Voucher</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><img src='@Url.Content("~/AppImages/logo.png")' style="width:100%; max-width:200px;"></td>
+            <td style="line-height: 10px;">
+                
+                <p>BLK-640, ROWELL ROAD, #01-54</p>
+                <p>Singapore - 200640.</p>                
+                <p>Tel: +65-62917747/91137493</p>
+                @*<p>WhatsApp: +65 91137493</p>*@
+                <p>info@cholaholidays.com | www.cholaholidays.com</p>
+                @*<b>OCBC Currnet: 712 558428 001 | POSB Savings: 421 286710</b>*@
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="10">
+        <tr>
+            <td style="text-align: right;">MONTH: @ViewBag.MonthYear</td>
+        </tr>
+    </table>
+    <table cellpadding="25">
+        <tr>
+            <td style="text-align: center;">SALARY VOUCHER</td>
+            <td style="text-align: right;">VOUCHER NO : @ViewBag.VoucherCode</td>
+        </tr>
+    </table>
+    
+    <table cellpadding="5" border="1">
+        <tr style="background-color:lightgoldenrodyellow">
+                
+            @*<td><b>@ViewBag.CustomerName</b></td>*@
+            <td><b>Pay To: @ViewBag.PayTo</b></td>
+            <td align="right">NRIC / FIN No:</td>
+            <td>@ViewBag.FINNo</td>
+        </tr>
+            
+    </table>
+
+    <br />
+    <table cellpadding="5" border="1">
+        <tr style="background-color:lightgoldenrodyellow">
+            <th>Earnings</th>
+            <th></th>
+            <th></th>
+        </tr>      
+        <tr>
+            <td></td>
+            <td>BASIC PAY</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.BasicPay)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>OVERTIME</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.OverTime)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>COMMISSION</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.Commission)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ALLOWANCE</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.Allowance)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-weight:bold">(A) GROSS PAY</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.GrossPay)</td>
+        </tr>
+
+        <tr style="background-color:lightgoldenrodyellow">
+            <th>DEDUCTIONS</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>CPF-EMPLOYEE</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.CPF)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>MBF</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.MBF)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>ADVANCE / LOAN</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.Advance)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>INCOME TAX</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.IncomeTax)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-weight:bold">(B) TOTAL DEDUCTIONS</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.TotalDeductions)</td>
+        </tr>
+
+        <tr style="background-color:lightgoldenrodyellow">
+            <th>ADDITIONS</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>REIMBURSEMENT</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.Reembursement)</td>
+        </tr>
+       
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-weight:bold">(C) TOTAL ADDITIONS</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.TotalAdditions)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: right"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-weight:bold">NETT PAY (A+B-C)</td>
+            <td style="text-align: right">$ @String.Format("{0:n}", ViewBag.NetPay)</td>
+        </tr>
+
+    </table>
+    <div style="margin-top: 50px; padding: 10px 1%;">
+
+        <table>
+            <tr>
+                <td width="30%"><hr></td>
+                <td></td>
+                <td></td>
+                <td width="30%"><hr></td>
+            </tr>
+            <tr>
+                <td>EMPLOYER SIGNATURE</td>
+                <td></td>
+                <td></td>
+                <td>EMPLOYEES SIGNATURE<br></td>
+            </tr>
+
+        </table>
+    </div>
+    <button type="button" id="printpagebutton" class="btn btn-primary btn-xs" onclick="myFunction()">Print</button>
+
+    <script type="text/javascript">
+            function myFunction() {
+                //Get the print button and put it into a variable
+                var printButton = document.getElementById("printpagebutton");
+                //Set the print button visibility to 'hidden'
+                printButton.style.visibility = 'hidden';
+                //Print the page content
+                window.print()
+                //Set the print button to 'visible' again
+                //[Delete this line if you want it to stay hidden after printing]
+                printButton.style.visibility = 'visible';
+            }
+    </script>
+</body>
+
+</html>

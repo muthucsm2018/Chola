@@ -1,0 +1,868 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Invoice</title>
+    <link href="@Url.Content("~/Invoice.css")" rel="stylesheet" />
+    <STYLE type="text/css">
+        body {
+            margin-top: 0px;
+            margin-left: 0px;
+        }
+
+        #page_1 {
+            position: relative;
+            overflow: hidden;
+            margin: 8px 0px 210px 0px;
+            padding: 0px;
+            border: none;
+            width: 816px;
+        }
+
+            #page_1 #id1_1 {
+                border: none;
+                margin: 102px 0px 0px 8px;
+                padding: 0px;
+                border: none;
+                width: 808px;
+                overflow: hidden;
+            }
+
+            #page_1 #id1_2 {
+                border: none;
+                margin: 11px 0px 0px 0px;
+                padding: 0px;
+                border: none;
+                width: 816px;
+                overflow: hidden;
+            }
+
+                #page_1 #id1_2 #id1_2_1 {
+                    float: left;
+                    border: none;
+                    margin: 0px 0px 0px 0px;
+                    padding: 0px;
+                    border: none;
+                    width: 387px;
+                    overflow: hidden;
+                }
+
+                #page_1 #id1_2 #id1_2_2 {
+                    float: left;
+                    border: none;
+                    margin: 0px 0px 0px 0px;
+                    padding: 0px;
+                    border: none;
+                    width: 280px;
+                    overflow: hidden;
+                }
+
+                #page_1 #id1_2 #id1_2_3 {
+                    float: left;
+                    border: none;
+                    margin: 0px 0px 0px 0px;
+                    padding: 0px;
+                    border: none;
+                    width: 149px;
+                    overflow: hidden;
+                }
+
+            #page_1 #id1_3 {
+                border: none;
+                margin: 0px 0px 0px 8px;
+                padding: 0px;
+                border: none;
+                width: 808px;
+                overflow: hidden;
+            }
+
+            #page_1 #p1dimg1 {
+                position: absolute;
+                top: 0px;
+                left: 8px;
+                z-index: -1;
+                width: 800px;
+                height: 832px;
+            }
+
+                #page_1 #p1dimg1 #p1img1 {
+                    width: 800px;
+                    height: 832px;
+                }
+
+
+
+            #page_1 #tx1 {
+                position: absolute;
+                top: 553px;
+                left: 115px;
+                width: 477px;
+                height: 12px;
+            }
+
+            #page_1 #tx2 {
+                position: absolute;
+                top: 539px;
+                left: 109px;
+                width: 381px;
+                height: 12px;
+            }
+
+        .dclr {
+            clear: both;
+            float: none;
+            height: 1px;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        .ft0 {
+            font: 9px 'Arial';
+            line-height: 12px;
+        }
+
+        .ft1 {
+            font: bold 16px 'Arial';
+            line-height: 19px;
+        }
+
+        .ft2 {
+            font: 12px 'Arial';
+            line-height: 15px;
+        }
+
+        .ft3 {
+            font: bold 12px 'Arial';
+            line-height: 15px;
+        }
+
+        .ft4 {
+            font: bold 14px 'Arial';
+            line-height: 16px;
+        }
+
+        .ft5 {
+            font: bold 20px 'Arial';
+            color: #405d1f;
+            line-height: 24px;
+        }
+
+        .ft6 {
+            font: 20px 'Arial';
+            color: #003778;
+            line-height: 23px;
+        }
+
+        .ft7 {
+            font: bold 12px 'Arial';
+            color: #ababab;
+            line-height: 15px;
+        }
+
+        .ft8 {
+            font: 1px 'Arial';
+            line-height: 1px;
+        }
+
+        .ft9 {
+            font: bold 12px 'Arial';
+            color: #ababab;
+            line-height: 14px;
+        }
+
+        .ft10 {
+            font: 1px 'Arial';
+            line-height: 7px;
+        }
+
+        .ft11 {
+            font: 12px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft12 {
+            font: 11px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft13 {
+            font: 11px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft14 {
+            font: 12px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft15 {
+            font: 1px 'Arial';
+            line-height: 9px;
+        }
+
+        .ft16 {
+            font: 1px 'Arial';
+            line-height: 6px;
+        }
+
+        .ft17 {
+            font: bold 12px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft18 {
+            font: 10px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft19 {
+            font: bold 12px 'Arial';
+            line-height: 12px;
+        }
+
+        .ft20 {
+            font: 10px 'Arial';
+            line-height: 12px;
+        }
+
+        .ft21 {
+            font: bold 12px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft22 {
+            font: 10px 'Arial';
+            line-height: 11px;
+        }
+
+        .p0 {
+            text-align: left;
+            padding-left: 335px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p1 {
+            text-align: left;
+            padding-left: 3px;
+            margin-top: 3px;
+            margin-bottom: 0px;
+        }
+
+        .p2 {
+            text-align: left;
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+
+        .p3 {
+            text-align: left;
+            padding-right: 44px;
+            margin-top: 11px;
+            margin-bottom: 0px;
+        }
+
+        .p4 {
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .p5 {
+            text-align: left;
+            padding-left: 130px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p6 {
+            text-align: right;
+            padding-right: 189px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p7 {
+            text-align: left;
+            padding-left: 8px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .p8 {
+            text-align: left;
+            padding-left: 18px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p9 {
+            text-align: left;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p10 {
+            text-align: left;
+            padding-left: 6px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p11 {
+            text-align: left;
+            padding-left: 29px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p12 {
+            text-align: left;
+            padding-left: 199px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p13 {
+            text-align: left;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p14 {
+            text-align: left;
+            padding-left: 62px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p15 {
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p16 {
+            text-align: center;
+            padding-left: 2px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p17 {
+            text-align: center;
+            padding-right: 1px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p18 {
+            text-align: left;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .p19 {
+            text-align: left;
+            padding-left: 58px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p20 {
+            text-align: left;
+            padding-left: 74px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p21 {
+            text-align: left;
+            padding-left: 75px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p22 {
+            text-align: left;
+            padding-left: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p23 {
+            text-align: left;
+            padding-left: 32px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p24 {
+            text-align: center;
+            padding-right: 3px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p25 {
+            text-align: center;
+            padding-right: 4px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p26 {
+            text-align: left;
+            margin-top: 11px;
+            margin-bottom: 0px;
+        }
+
+        .p27 {
+            text-align: left;
+            padding-left: 18px;
+            margin-top: 11px;
+            margin-bottom: 0px;
+        }
+
+        .p28 {
+            text-align: left;
+            padding-left: 18px;
+            padding-right: 42px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p29 {
+            text-align: left;
+            padding-left: 18px;
+            padding-right: 18px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p30 {
+            text-align: left;
+            padding-left: 18px;
+            padding-right: 30px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p31 {
+            text-align: left;
+            padding-left: 18px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+
+        .p32 {
+            text-align: left;
+            padding-left: 36px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p33 {
+            text-align: left;
+            padding-left: 36px;
+            padding-right: 29px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p34 {
+            text-align: left;
+            padding-left: 36px;
+            padding-right: 274px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .td0 {
+            padding: 0px;
+            margin: 0px;
+            width: 0px;
+            vertical-align: bottom;
+        }
+
+        .td1 {
+            border-left: #000000 1px solid;
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 87px;
+            vertical-align: bottom;
+        }
+
+        .td2 {
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 356px;
+            vertical-align: bottom;
+        }
+
+        .td3 {
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 146px;
+            vertical-align: bottom;
+        }
+
+        .td4 {
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 207px;
+            vertical-align: bottom;
+        }
+
+        .td5 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 355px;
+            vertical-align: bottom;
+        }
+
+        .td6 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 146px;
+            vertical-align: bottom;
+        }
+
+        .td7 {
+            border-left: #000000 1px solid;
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 87px;
+            vertical-align: bottom;
+        }
+
+        .td8 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 207px;
+            vertical-align: bottom;
+        }
+
+        .td9 {
+            border-left: #000000 1px solid;
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 146px;
+            vertical-align: bottom;
+        }
+
+        .td10 {
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 185px;
+            vertical-align: bottom;
+        }
+
+        .td11 {
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 113px;
+            vertical-align: bottom;
+        }
+
+        .td12 {
+            border-right: #000000 1px solid;
+            border-top: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 51px;
+            vertical-align: bottom;
+        }
+
+        .td13 {
+            border-left: #000000 1px solid;
+            border-right: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 146px;
+            vertical-align: bottom;
+        }
+
+        .td14 {
+            border-right: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 185px;
+            vertical-align: bottom;
+        }
+
+        .td15 {
+            border-right: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 113px;
+            vertical-align: bottom;
+        }
+
+        .td16 {
+            border-right: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 51px;
+            vertical-align: bottom;
+        }
+
+        .td17 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 185px;
+            vertical-align: bottom;
+        }
+
+        .td18 {
+            border-left: #000000 1px solid;
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 146px;
+            vertical-align: bottom;
+        }
+
+        .td19 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 113px;
+            vertical-align: bottom;
+        }
+
+        .td20 {
+            border-right: #000000 1px solid;
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 51px;
+            vertical-align: bottom;
+        }
+
+        .tr0 {
+            height: 17px;
+        }
+
+        .tr1 {
+            height: 25px;
+        }
+
+        .tr2 {
+            height: 6px;
+        }
+
+        .tr3 {
+            height: 14px;
+        }
+
+        .tr4 {
+            height: 7px;
+        }
+
+        .tr5 {
+            height: 20px;
+        }
+
+        .tr6 {
+            height: 13px;
+        }
+
+        .tr7 {
+            height: 16px;
+        }
+
+        .tr8 {
+            height: 9px;
+        }
+
+        .tr9 {
+            height: 15px;
+        }
+
+        .t0 {
+            width: 799px;
+            font: 12px 'Arial';
+        }
+
+        .t1 {
+            width: 799px;
+            font: 11px 'Arial';
+        }
+    </STYLE>
+</head>
+
+<body>
+
+    <DIV id="page_1">
+        <table>
+            <tr>
+                <td style="padding-top: 10px;"><img src='@Url.Content("~/AppImages/" + ViewBag.Flight + ".jpg")' align="right" style="padding-right: 25px;">
+               </td>
+            </tr>
+        </table>
+
+        <DIV class="dclr"></DIV>
+        <DIV id="id1_1">
+            <P class="p0 ft1"><NOBR>E-Ticket</NOBR> Itinerary</P>
+            <P class="p1 ft3"><SPAN class="ft2">Dear </SPAN>@ViewBag.CustomerName,</P>
+            <P class="p2 ft2">Thank you for using our online booking service.</P>
+            <P class="p3 ft2">Please find your attached eTicket in PDF. Kindly note, that you will be required to carry a printout of your eTicket accompanied with a valid photo identification to enter the airport and for <NOBR>check-in.</NOBR></P>
+            <P class="p4 ft4">Reservation Status</P>
+        </DIV>
+        <DIV id="id1_2">
+            <DIV id="id1_2_1">
+                <P class="p5 ft2">Status</P>
+                <P class="p6 ft5">Confirmed</P>
+                <P class="p7 ft4">Passenger Details</P>
+            </DIV>
+            <DIV id="id1_2_2">
+                <P class="p8 ft2">Reference No.</P>
+                <P class="p9 ft6">@ViewBag.RefNo</P>
+            </DIV>
+            <DIV id="id1_2_3">
+                <P class="p10 ft2">Airline PNR</P>
+                <P class="p9 ft6">@ViewBag.AirlinePNR</P>
+            </DIV>
+        </DIV>
+        <DIV id="id1_3">
+            <TABLE cellpadding=0 cellspacing=0 class="t0">
+                <TR>
+                    <TD class="tr0 td0"></TD>
+                    <TD rowspan=2 class="tr1 td1"><P class="p11 ft7">S.No.</P></TD>
+                    <TD class="tr0 td2"><P class="p12 ft7">Passenger Details</P></TD>
+                    <TD class="tr0 td3"><P class="p13 ft8">&nbsp;</P></TD>
+                    <TD rowspan=2 class="tr1 td4"><P class="p14 ft7">Ticket Number</P></TD>
+                </TR>
+               
+                <TR>
+                    <TD class="tr2 td0"></TD>
+                    <TD rowspan=2 class="tr3 td5"><P class="p15 ft9">Name</P></TD>
+                    <TD rowspan=2 class="tr3 td6"><P class="p15 ft9">Pax Type</P></TD>
+                </TR>
+                <TR>
+                    <TD class="tr4 td0"></TD>
+                    <TD class="tr4 td7"><P class="p13 ft10">&nbsp;</P></TD>
+                    <TD class="tr4 td8"><P class="p13 ft10">&nbsp;</P></TD>
+                </TR>
+                @{int idx = 1;}
+                @foreach (Chola.Models.ETicketPassengerListModel mod in ViewBag.Passengers)
+                {
+                    <tr>
+                        <td class="tr3 td0"></td>
+                        <td class="tr3 td7"><p class="p16 ft11">@idx</p></td>
+                        <td class="tr3 td5"><p class="p17 ft11">@mod.PassengerName</p></td>
+                        <td class="tr3 td6"><p class="p15 ft11">@mod.PaxType</p></td>
+                        <td class="tr3 td8"><p class="p15 ft11">@mod.TicketNo</p></td>                       
+                    </tr>
+                    idx++;
+                }
+                
+            </TABLE>
+            <P class="p18 ft4">Detailed Itinerary</P>
+            <TABLE cellpadding=0 cellspacing=0 class="t1">
+                <TR>
+                    <TD class="tr0 td0"></TD>
+                    <TD class="tr0 td9"><P class="p19 ft7">Flight</P></TD>
+                    <TD class="tr0 td10"><P class="p20 ft7">Depart</P></TD>
+                    <TD class="tr0 td10"><P class="p21 ft7">Arrive</P></TD>
+                    <TD class="tr0 td11"><P class="p22 ft7">Class</P></TD>
+                    
+                    <TD class="tr0 td12"><P class="p13 ft7">Baggage</P></TD>
+                </TR>
+               
+                @foreach (Chola.Models.ETicketItineryListModel mod in ViewBag.Itineries)
+                {
+                    <tr>
+                        <td class="tr2 td0">@mod.Flight</td>
+                        <td rowspan=2 class="tr6 td14"><P class="p25 ft13">@Html.Raw(mod.Depart)</P></td>
+                        <td rowspan=2 class="tr6 td14"><P class="p24 ft13">@Html.Raw(mod.Arrive)</P></td>
+                        <td rowspan=2 class="tr6 td15"><P class="p15 ft14">@mod.Class</P></td>
+                        <td rowspan=2 class="tr6 td15"><P class="p15 ft13">@mod.Baggage</P></td>
+                        
+                    </tr>                 
+                   
+                 }
+               
+              
+                <TR>
+                    <TD class="tr2 td0"></TD>
+                    <TD class="tr2 td18"><P class="p13 ft16">&nbsp;</P></TD>
+                    <TD class="tr2 td19"><P class="p13 ft16">&nbsp;</P></TD>
+                    <TD class="tr2 td19"><P class="p13 ft16">&nbsp;</P></TD>
+                    <TD class="tr2 td20"><P class="p13 ft16">&nbsp;</P></TD>
+                </TR>
+            </TABLE>
+            <P class="p26 ft4">Rules and Regulations: </P>
+            <P class="p8 ft18"><SPAN class="ft17">Passenger ID: </SPAN>All passengers must produce a valid photo identification proof at the time of check in.</P>
+            <P class="p8 ft18"><SPAN class="ft17">Flight Timings: </SPAN>Flight Timings are subject to change without prior notice. Please recheck with the carrier prior to departure.</P>
+            <P class="p8 ft18"><SPAN class="ft17">Security Screening: </SPAN>Guests will be subjected to a security screening prior to boarding the aircraft. This is mandatory per Indian Regulations.</P>
+            <P class="p28 ft20"><SPAN class="ft19">Domestic Flights: </SPAN>For flights within India <NOBR>Check-in</NOBR> counters open 3 hours prior to departure of flights and close 1 hour prior to departure of flights. You may be denied boarding if you do not report in time.</P>
+            <P class="p29 ft18"><SPAN class="ft21">International Flights: </SPAN>For International flights <NOBR>Check-in</NOBR> usually starts 3 hours prior to departure, and <NOBR>Check-in</NOBR> counters will be closed 75 minutes before departure time for all classes of guests.</P>
+            <P class="p8 ft18"><SPAN class="ft17">Cancellation: </SPAN>For Fare Rules / Cancellation policy- refer to fare rules laid by the carrier.</P>
+            <P class="p8 ft18">Terms and Conditions of <SPAN class="ft17">“Travel and Carrier Liability Notices” </SPAN>can be requested from the Travel Agency or the transporting Carrier.</P>
+            <P class="p30 ft22">While compiling the all above information, we have endeavored to ensure that all information is correct. However, no guarantee or representation is made to the accuracy or completeness of the information contained here. This information is subject to changes by airlines without notice.</P>
+            <P class="p9 ft4">Important Note:</P>
+            <P class="p31 ft3">If you Travel to Middle East</P>
+            <P class="p32 ft18"><SPAN class="ft3">“OK TO BOARD” </SPAN>Message is mandatory for all middle east countries . Please call our Call Center for update.</P>
+            <P class="p8 ft17">If you Travel to USA, CANADA, UK & EUROPE</P>
+            <P class="p33 ft20"><SPAN class="ft19">Passport Visa Details & Contact information </SPAN>address at Destination ( i.e) <SPAN class="ft19">USA, CANADA, UK, EUROPE </SPAN>is mandatory. Please call our Call Center for Update.</P>
+            <P class="p32 ft20">To ensure Smoot Journey Kindly update the same with the call center.</P>
+            <P class="p34 ft18">Please check your/customer <SPAN class="ft17">TravelDocuments </SPAN>Such as <SPAN class="ft17">Visa </SPAN>and <SPAN class="ft17">Passport </SPAN>before travel/ticket issuance. Return Ticket is mandatory for <SPAN class="ft17">Tourist/ Visitor Visa</SPAN>.</P>
+            <P class="p32 ft22">Any Discrepancy the responsibility lies with respective agents.</P>
+            <P class="p32 ft18">If the passenger is deport from the destination, Issuing Agent is responsible for deporting Charges.</P>
+        </DIV>
+    </DIV>
+
+</body>
+</html>

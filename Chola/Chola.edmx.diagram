@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2d5f2c3d55d74760866fb4370003c75c" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="CholaModel.Acc_SalesPayments" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Acc_Vendors" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.CustomerAccount" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.CustomerAccount_Payment" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Document" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Miscellaneous" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.OthersType" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.security_Pages" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.security_RolePages" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.security_Roles" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.security_UsersInRoles" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Status" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Tours" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Transactions" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.webpages_OAuthMembership" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.webpages_Roles" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.Expense" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.webpages_Membership" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CholaModel.ETicket_Passengers" Width="1.5" PointX="13.375" PointY="8.75" />
+        <EntityTypeShape EntityType="CholaModel.ETickets" Width="1.5" PointX="13.375" PointY="11.75" />
+        <EntityTypeShape EntityType="CholaModel.Flights" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CholaModel.Airports" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CholaModel.Baggages" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CholaModel.ETicket_Itinery" Width="1.5" PointX="9.375" PointY="14.75" />
+        <EntityTypeShape EntityType="CholaModel.PaySlip" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="CholaModel.Ticket_Customers" Width="1.5" PointX="5.375" PointY="15.75" />
+        <EntityTypeShape EntityType="CholaModel.Ticket" Width="1.5" PointX="15.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

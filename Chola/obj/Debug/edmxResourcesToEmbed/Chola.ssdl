@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CholaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Acc_SalesPayments">
+    <Key>
+      <PropertyRef Name="TableKey" />
+    </Key>
+    <Property Name="TableKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorCode" Type="int" Nullable="false" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="PaymentAmount" Type="float" />
+    <Property Name="PaymentBy" Type="nvarchar" MaxLength="10" />
+    <Property Name="BalanceAmount" Type="float" />
+  </EntityType>
+  <EntityType Name="Acc_Vendors">
+    <Key>
+      <PropertyRef Name="VendorCode" />
+    </Key>
+    <Property Name="VendorCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address1" Type="nvarchar" MaxLength="500" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="500" />
+    <Property Name="Address3" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxID" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Airports">
+    <Key>
+      <PropertyRef Name="AirportCode" />
+    </Key>
+    <Property Name="AirportCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AirportName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Baggages">
+    <Key>
+      <PropertyRef Name="BaggageCode" />
+    </Key>
+    <Property Name="BaggageCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BaggageName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CustomerAccount">
+    <Key>
+      <PropertyRef Name="RefNo" />
+    </Key>
+    <Property Name="RefNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="OpeningBalance" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="CustomerAccount_Payment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="TrxnDate" Type="datetime" Nullable="false" />
+    <Property Name="PaymentBy" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="DocumentType" />
+    </Key>
+    <Property Name="DocumentType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+    <Property Name="VisaType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Duration" Type="nvarchar" MaxLength="50" />
+    <Property Name="VisaCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Charge" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ProcessingDays" Type="int" />
+    <Property Name="SortOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="ETicket_Itinery">
+    <Key>
+      <PropertyRef Name="ItineryCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="int" Nullable="false" />
+    <Property Name="ItineryCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Flight" Type="nvarchar" MaxLength="75" />
+    <Property Name="FlightNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Depart" Type="nvarchar" MaxLength="200" />
+    <Property Name="DepartDate" Type="datetime" />
+    <Property Name="DepartTime" Type="nvarchar" MaxLength="20" />
+    <Property Name="Arrive" Type="nvarchar" MaxLength="200" />
+    <Property Name="ArriveDate" Type="datetime" />
+    <Property Name="ArriveTime" Type="nvarchar" MaxLength="20" />
+    <Property Name="Class" Type="nvarchar" MaxLength="20" />
+    <Property Name="Baggage" Type="nvarchar" MaxLength="20" />
+    <Property Name="DepartTer" Type="nvarchar" MaxLength="50" />
+    <Property Name="ArriveTer" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ETicket_Passengers">
+    <Key>
+      <PropertyRef Name="PassengerCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="int" Nullable="false" />
+    <Property Name="PassengerCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PassengerName" Type="nvarchar" MaxLength="250" />
+    <Property Name="PaxType" Type="nvarchar" MaxLength="10" />
+    <Property Name="TicketNo" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ETickets">
+    <Key>
+      <PropertyRef Name="ETicketCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="int" Nullable="false" />
+    <Property Name="Prefix" Type="varchar" MaxLength="4" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="100" />
+    <Property Name="RefNo" Type="varchar" MaxLength="20" />
+    <Property Name="AirlinePNR" Type="varchar" MaxLength="20" />
+    <Property Name="TrxnDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_9B4693_Chola.dbo.Expense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Expense">
+    <Key>
+      <PropertyRef Name="ExpenseCode" />
+      <PropertyRef Name="ExpenseName" />
+    </Key>
+    <Property Name="ExpenseCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Charge" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="256" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Flights">
+    <Key>
+      <PropertyRef Name="FlightCode" />
+    </Key>
+    <Property Name="FlightCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FlightName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Miscellaneous">
+    <Key>
+      <PropertyRef Name="OthersCode" />
+    </Key>
+    <Property Name="OthersCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OthersTypeCode" Type="int" Nullable="false" />
+    <Property Name="Charge" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="256" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OthersType">
+    <Key>
+      <PropertyRef Name="OthersTypeCode" />
+    </Key>
+    <Property Name="OthersTypeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OtherTypeName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaySlip">
+    <Key>
+      <PropertyRef Name="PaySlipCode" />
+    </Key>
+    <Property Name="PaySlipCode" Type="int" Nullable="false" />
+    <Property Name="MonthYear" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PayTo" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FINNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="BasicPay" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="OverTime" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Commission" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GrossPay" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CPF" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MBF" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Advance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IncomeTax" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalDeductions" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Reembursement" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAdditions" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ApprovedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="PayDay" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="security_Pages">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="int" Nullable="false" />
+    <Property Name="PageParentID" Type="int" />
+    <Property Name="PageName" Type="nvarchar" MaxLength="80" />
+    <Property Name="Description" Type="nvarchar" MaxLength="256" />
+    <Property Name="PageURL" Type="nvarchar" MaxLength="256" />
+    <Property Name="PageOrdinal" Type="int" />
+    <Property Name="IsMenu" Type="smallint" />
+  </EntityType>
+  <EntityType Name="security_RolePages">
+    <Key>
+      <PropertyRef Name="RoleID" />
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="PageID" Type="int" Nullable="false" />
+    <Property Name="IsHomePage" Type="smallint" />
+  </EntityType>
+  <EntityType Name="security_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="security_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusCode" />
+    </Key>
+    <Property Name="StatusCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticket_Customers">
+    <Key>
+      <PropertyRef Name="CustomerCode" />
+    </Key>
+    <Property Name="TicketCode" Type="bigint" Nullable="false" />
+    <Property Name="CustomerCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="350" />
+    <Property Name="Description" Type="nvarchar" MaxLength="350" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="350" />
+    <Property Name="BuyingPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SellingPrice" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Tickets">
+    <Key>
+      <PropertyRef Name="TicketCode" />
+    </Key>
+    <Property Name="TicketCode" Type="bigint" Nullable="false" />
+    <Property Name="VendorCode" Type="int" />
+    <Property Name="TrxnDate" Type="datetime" />
+    <Property Name="DueDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="RefNo" Type="varchar" MaxLength="50" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tours">
+    <Key>
+      <PropertyRef Name="TourCode" />
+    </Key>
+    <Property Name="TourCode" Type="int" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+    <Property Name="TrxnDate" Type="datetime" />
+    <Property Name="BuyingPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SellingPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PassportNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DocumentType" Type="int" Nullable="false" />
+    <Property Name="BarcodeNumber" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusCode" Type="int" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" />
+    <Property Name="DeliveryDate" Type="datetime" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+    <Property Name="PayableAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BalanceAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="BarcodeImage" Type="image" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_9B4693_Chola.dbo.webpages_Membership' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="PasswordFailuresSinceLastSuccess" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="PasswordSalt" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsConfirmed" Type="bit" />
+    <Property Name="LastPasswordFailureDate" Type="datetime" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="datetime" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <Function Name="sp_frm_add_upd_Acc_Bill_ActualCost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketCode" Type="int" Mode="In" />
+    <Parameter Name="Charge" Type="decimal" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Acc_Vendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VendorCode" Type="int" Mode="In" />
+    <Parameter Name="VendorName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+    <Parameter Name="Address2" Type="nvarchar" Mode="In" />
+    <Parameter Name="Address3" Type="nvarchar" Mode="In" />
+    <Parameter Name="TaxID" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="bit" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_AccSalesPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VendorCode" Type="int" Mode="In" />
+    <Parameter Name="PaymentDate" Type="datetime" Mode="In" />
+    <Parameter Name="PaymentBy" Type="nvarchar" Mode="In" />
+    <Parameter Name="PaymentAmount" Type="float" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_CustomerPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PaymentID" Type="int" Mode="In" />
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Amount" Type="decimal" Mode="In" />
+    <Parameter Name="TrxnDate" Type="datetime" Mode="In" />
+    <Parameter Name="PaymentBy" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="OpeningBalance" Type="decimal" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Document" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DocumentType" Type="int" Mode="In" />
+    <Parameter Name="DocumentName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Nationality" Type="nvarchar" Mode="In" />
+    <Parameter Name="VisaType" Type="nvarchar" Mode="In" />
+    <Parameter Name="Duration" Type="nvarchar" Mode="In" />
+    <Parameter Name="VisaCost" Type="decimal" Mode="In" />
+    <Parameter Name="Charge" Type="decimal" Mode="In" />
+    <Parameter Name="ProcessingDays" Type="int" Mode="In" />
+    <Parameter Name="SortOrder" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_ETickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ETicketCode" Type="int" Mode="In" />
+    <Parameter Name="Prefix" Type="varchar" Mode="In" />
+    <Parameter Name="CustomerName" Type="varchar" Mode="In" />
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="AirlinePNR" Type="varchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Expense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExpenseCode" Type="int" Mode="In" />
+    <Parameter Name="ExpenseName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Charge" Type="decimal" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Flights" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FlightCode" Type="int" Mode="In" />
+    <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Status" Type="bit" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Miscellaneous" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OthersCode" Type="int" Mode="In" />
+    <Parameter Name="OthersTypeCode" Type="int" Mode="In" />
+    <Parameter Name="Charge" Type="decimal" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_OthersType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OthersTypeCode" Type="int" Mode="In" />
+    <Parameter Name="OtherTypeName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Tickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketCode" Type="bigint" Mode="In" />
+    <Parameter Name="VendorCode" Type="int" Mode="In" />
+    <Parameter Name="TicketDate" Type="datetime" Mode="In" />
+    <Parameter Name="DueDate" Type="datetime" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="ContactNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Tours" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TourCode" Type="int" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="TrxnDate" Type="datetime" Mode="In" />
+    <Parameter Name="BuyingPrice" Type="decimal" Mode="In" />
+    <Parameter Name="SellingPrice" Type="decimal" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_add_upd_Transactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TransactionID" Type="int" Mode="In" />
+    <Parameter Name="PassportNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="DocumentType" Type="int" Mode="In" />
+    <Parameter Name="BarcodeNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="InvoiceNumber" Type="nvarchar" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ContactNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Nationality" Type="nvarchar" Mode="In" />
+    <Parameter Name="StatusCode" Type="int" Mode="In" />
+    <Parameter Name="TransactionDate" Type="datetime" Mode="In" />
+    <Parameter Name="DeliveryDate" Type="datetime" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="PayableAmount" Type="decimal" Mode="In" />
+    <Parameter Name="PaidAmount" Type="decimal" Mode="In" />
+    <Parameter Name="BalanceAmount" Type="decimal" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Acc_Vendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VendorName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_AccSales_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_AccSales_Payments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VendorCode" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_AccSales_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="VendorCode" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Customer_Payments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Customer_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+    <Parameter Name="PaymentBy" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Documents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DocumentName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Nationality" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_ETickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ETicketCode" Type="int" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="AirlinePNR" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Expense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ExpenseCode" Type="int" Mode="In" />
+    <Parameter Name="ExpenseName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ParmType" Type="int" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Flights" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Miscellaneous" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OthersCode" Type="int" Mode="In" />
+    <Parameter Name="OthersTypeCode" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ParmType" Type="int" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_OtherTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OthersTypeName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_parm_Acc_Vendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CompanyID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_parm_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Parm_DocumentTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Parm_OtherTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Parm_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Parm_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Tickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketCode" Type="bigint" Mode="In" />
+    <Parameter Name="VendorName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+    <Parameter Name="RefNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Tickets_Report" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TicketCode" Type="int" Mode="In" />
+    <Parameter Name="VendorName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Tours" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TourCode" Type="int" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Transaction_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Transaction_Details_OverAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustomerId" Type="int" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_get_Transactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TransactionID" Type="int" Mode="In" />
+    <Parameter Name="BarCodeNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="CustomerName" Type="nvarchar" Mode="In" />
+    <Parameter Name="PassportNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="InvoiceNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="TransactionFrom" Type="datetime" Mode="In" />
+    <Parameter Name="TransactionTo" Type="datetime" Mode="In" />
+    <Parameter Name="StatusCode" Type="int" Mode="In" />
+    <Parameter Name="CreatedBy" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_Security_get_UserHomePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_Security_get_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsActive" Type="smallint" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="PageName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_frm_Security_TreeViewMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="Menu" Type="varchar" Mode="In" />
+    <Parameter Name="ParentID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="CholaModelStoreContainer">
+    <EntitySet Name="Acc_SalesPayments" EntityType="Self.Acc_SalesPayments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Acc_Vendors" EntityType="Self.Acc_Vendors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Airports" EntityType="Self.Airports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Baggages" EntityType="Self.Baggages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerAccount_Payment" EntityType="Self.CustomerAccount_Payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ETicket_Itinery" EntityType="Self.ETicket_Itinery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ETicket_Passengers" EntityType="Self.ETicket_Passengers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ETickets" EntityType="Self.ETickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Miscellaneous" EntityType="Self.Miscellaneous" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OthersType" EntityType="Self.OthersType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaySlip" EntityType="Self.PaySlip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="security_Pages" EntityType="Self.security_Pages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="security_RolePages" EntityType="Self.security_RolePages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="security_Roles" EntityType="Self.security_Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="security_UsersInRoles" EntityType="Self.security_UsersInRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket_Customers" EntityType="Self.Ticket_Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expense" EntityType="Self.Expense" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Expense].[ExpenseCode] AS [ExpenseCode], 
+    [Expense].[ExpenseName] AS [ExpenseName], 
+    [Expense].[Charge] AS [Charge], 
+    [Expense].[Remarks] AS [Remarks], 
+    [Expense].[CreatedBy] AS [CreatedBy], 
+    [Expense].[CreatedDate] AS [CreatedDate], 
+    [Expense].[UpdatedBy] AS [UpdatedBy], 
+    [Expense].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[Expense] AS [Expense]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [webpages_Membership].[UserId] AS [UserId], 
+    [webpages_Membership].[CreateDate] AS [CreateDate], 
+    [webpages_Membership].[ConfirmationToken] AS [ConfirmationToken], 
+    [webpages_Membership].[IsConfirmed] AS [IsConfirmed], 
+    [webpages_Membership].[LastPasswordFailureDate] AS [LastPasswordFailureDate], 
+    [webpages_Membership].[PasswordFailuresSinceLastSuccess] AS [PasswordFailuresSinceLastSuccess], 
+    [webpages_Membership].[Password] AS [Password], 
+    [webpages_Membership].[PasswordChangedDate] AS [PasswordChangedDate], 
+    [webpages_Membership].[PasswordSalt] AS [PasswordSalt], 
+    [webpages_Membership].[PasswordVerificationToken] AS [PasswordVerificationToken], 
+    [webpages_Membership].[PasswordVerificationTokenExpirationDate] AS [PasswordVerificationTokenExpirationDate]
+    FROM [dbo].[webpages_Membership] AS [webpages_Membership]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

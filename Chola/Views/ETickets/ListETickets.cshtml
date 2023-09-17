@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "E-Tickets List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            E-Tickets List
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">E-Tickets List</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="col-sm-12 callout callout-info">
+                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+            </div>
+            <div class="box-body">
+                <h4 class="box-header">Search</h4>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <div>
+                                <input type="text" class="form-control" value="" placeholder="CustomerName" id="CustomerName" name="CustomerName">                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Airline PNR</label>
+                            <div>
+                                <input type="text" class="form-control" value="" placeholder="Airline PNR" id="AirlinePNR" name="AirlinePNR">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="btn-adj">
+                            <button type="button" id="btnsearch" onclick="GetInfo();" tabindex="3" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!--/.box-->
+            <div class="box box-default">
+
+                <div class="box-body">
+                    <div class="box-body table-responsive no-padding">
+
+                        <table id="myTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Customer Name</th>                                    
+                                    <th>Airline PNR</th>  
+                                    <th>Reference No</th>                                
+                                    <th>Created By</th> 
+                                    <th>Date</th>  
+                                    <th></th>                               
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div> <!--/.box-body-->
+            </div> <!--/.box-->
+        </div>
+    </section> <!-- /.content-->
+
+</div><!-- /.content-wrapper -->
+@Html.Hidden("ETicketCode")
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:850px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ticket Passenger Details</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="box-body table-responsive no-padding">
+                        <table id="myTable2" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Passenger Name</th>
+                                    <th>Pax Type</th>
+                                    <th>Ticket Number</th>                                    
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+
+        $("input").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                $("#btnsearch").click();
+            }
+        });
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+        $('#myTable').dataTable({
+
+            dom: 'lBfrtip',
+            responsive: !0,
+            buttons: [
+                 {
+
+                 }
+            ],
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            //"order": [[4, "desc"]],
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("QueryETicketList", "ETickets")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "CustomerName", "value": $('#CustomerName').val() },
+                { "name": "AirlinePNR", "value": $('#AirlinePNR').val() })               
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "100px",
+                    "render": function (o) {
+
+                        return "<a href='../ETickets/EditETicket?ETicketCode="
+                                   + o + "'>Edit</a>" ;
+                        //+ " | " + "<a onclick='return removeclick(" + '"' + o + '"' + ");' title='Remove this PatientID Details'>Delete</a>";
+
+                    }
+                },
+                { "sWidth": "200px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" },
+                { "sWidth": "100px" },  
+                { "sWidth": "100px" },  
+                { "sWidth": "50px",
+                    "render": function (o) {
+                        return "<button type='button' id='btnview' onclick='ViewClick(" + '"' + o + '"' + ");' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#myModal'>View</button>";
+                    }
+                },
+                { "sWidth": "50px",
+                    "render": function (o) {
+                        return "<button type='button' id='btninvoice' onclick='InvoiceClick(" + o + ");' class='btn btn-primary btn-xs'>Invoice</button>";
+                    }
+                }
+            ]
+        });
+
+        $('#myTable2').dataTable({
+
+            dom: 'lBfrtip',
+            responsive: !0,
+            buttons: [
+
+            ],
+            "paging": false,
+            "lengthChange": true,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "iDisplayLength": @System.Configuration.ConfigurationManager.AppSettings["WebGridPageSize"],
+            "sAjaxSource": "@Url.Action("ETicketPassengersList", "ETickets")",
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                { "name": "ETicketCode", "value": $('#ETicketCode').val() })
+            },
+            "bProcessing": true,
+            "aoColumns": [
+                { "sWidth": "100px",
+                    "render": function (o) {
+                        return "" ;                    
+                    }
+                },
+                { "sWidth": "250px" },
+                { "sWidth": "250px" },
+                { "sWidth": "100px" },
+               
+            ]
+        });
+    });
+
+    function ViewClick(trxnid) {
+        $('#ETicketCode').val(trxnid);
+        $('#myTable2').DataTable().ajax.reload();
+        
+    }
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+
+    function InvoiceClick(billid) {
+        var url = '@Url.Content("~/ETickets/Invoice")' + '?ETicketCode=' + billid;
+        window.open(url, window,'dialogHeight:750px;dialogWidth:400px;edge:Raised;center:Yes;help:No;resizable:No;status:No;scroll:Yes;');
+    }
+
+</script>
+
+
+

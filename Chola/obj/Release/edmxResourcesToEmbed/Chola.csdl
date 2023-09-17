@@ -1,0 +1,873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CholaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Acc_SalesPayments">
+    <Key>
+      <PropertyRef Name="TableKey" />
+    </Key>
+    <Property Name="TableKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VendorCode" Type="Int32" Nullable="false" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="PaymentAmount" Type="Double" />
+    <Property Name="PaymentBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="BalanceAmount" Type="Double" />
+  </EntityType>
+  <EntityType Name="Acc_Vendors">
+    <Key>
+      <PropertyRef Name="VendorCode" />
+    </Key>
+    <Property Name="VendorCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Address3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TaxID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int16" />
+  </EntityType>
+  <EntityType Name="CustomerAccount">
+    <Key>
+      <PropertyRef Name="RefNo" />
+    </Key>
+    <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OpeningBalance" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="CustomerAccount_Payment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="TrxnDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PaymentBy" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="DocumentType" />
+    </Key>
+    <Property Name="DocumentType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VisaType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VisaCost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Charge" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ProcessingDays" Type="Int32" />
+    <Property Name="SortOrder" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Miscellaneous">
+    <Key>
+      <PropertyRef Name="OthersCode" />
+    </Key>
+    <Property Name="OthersCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OthersTypeCode" Type="Int32" Nullable="false" />
+    <Property Name="Charge" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="OthersType">
+    <Key>
+      <PropertyRef Name="OthersTypeCode" />
+    </Key>
+    <Property Name="OthersTypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OtherTypeName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="security_Pages">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="Int32" Nullable="false" />
+    <Property Name="PageParentID" Type="Int32" />
+    <Property Name="PageName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PageURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PageOrdinal" Type="Int32" />
+    <Property Name="IsMenu" Type="Int16" />
+  </EntityType>
+  <EntityType Name="security_RolePages">
+    <Key>
+      <PropertyRef Name="RoleID" />
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="PageID" Type="Int32" Nullable="false" />
+    <Property Name="IsHomePage" Type="Int16" />
+  </EntityType>
+  <EntityType Name="security_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="security_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusCode" />
+    </Key>
+    <Property Name="StatusCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tours">
+    <Key>
+      <PropertyRef Name="TourCode" />
+    </Key>
+    <Property Name="TourCode" Type="Int32" Nullable="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TrxnDate" Type="DateTime" Precision="3" />
+    <Property Name="BuyingPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PassportNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DocumentType" Type="Int32" Nullable="false" />
+    <Property Name="BarcodeNumber" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StatusCode" Type="Int32" Nullable="false" />
+    <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PayableAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PaidAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BalanceAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="BarcodeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderUserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expense">
+    <Key>
+      <PropertyRef Name="ExpenseCode" />
+      <PropertyRef Name="ExpenseName" />
+    </Key>
+    <Property Name="ExpenseCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExpenseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Charge" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="PasswordFailuresSinceLastSuccess" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="PasswordSalt" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acc_SalesPayments" EntityType="Self.Acc_SalesPayments" />
+    <EntitySet Name="Acc_Vendors" EntityType="Self.Acc_Vendors" />
+    <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" />
+    <EntitySet Name="CustomerAccount_Payment" EntityType="Self.CustomerAccount_Payment" />
+    <EntitySet Name="Document" EntityType="Self.Document" />
+    <EntitySet Name="Miscellaneous" EntityType="Self.Miscellaneous" />
+    <EntitySet Name="OthersType" EntityType="Self.OthersType" />
+    <EntitySet Name="security_Pages" EntityType="Self.security_Pages" />
+    <EntitySet Name="security_RolePages" EntityType="Self.security_RolePages" />
+    <EntitySet Name="security_Roles" EntityType="Self.security_Roles" />
+    <EntitySet Name="security_UsersInRoles" EntityType="Self.security_UsersInRoles" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="Tours" EntityType="Self.Tours" />
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+    <EntitySet Name="Expense" EntityType="Self.Expense" />
+    <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
+    <FunctionImport Name="sp_frm_add_upd_Acc_Bill_ActualCost">
+      <Parameter Name="TicketCode" Mode="In" Type="Int32" />
+      <Parameter Name="Charge" Mode="In" Type="Decimal" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Acc_Vendors">
+      <Parameter Name="VendorCode" Mode="In" Type="Int32" />
+      <Parameter Name="VendorName" Mode="In" Type="String" />
+      <Parameter Name="Address1" Mode="In" Type="String" />
+      <Parameter Name="Address2" Mode="In" Type="String" />
+      <Parameter Name="Address3" Mode="In" Type="String" />
+      <Parameter Name="TaxID" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="Boolean" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_AccSalesPayment">
+      <Parameter Name="VendorCode" Mode="In" Type="Int32" />
+      <Parameter Name="PaymentDate" Mode="In" Type="DateTime" />
+      <Parameter Name="PaymentBy" Mode="In" Type="String" />
+      <Parameter Name="PaymentAmount" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_CustomerPayment">
+      <Parameter Name="PaymentID" Mode="In" Type="Int32" />
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+      <Parameter Name="Amount" Mode="In" Type="Decimal" />
+      <Parameter Name="TrxnDate" Mode="In" Type="DateTime" />
+      <Parameter Name="PaymentBy" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Customers">
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="OpeningBalance" Mode="In" Type="Decimal" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Document">
+      <Parameter Name="DocumentType" Mode="In" Type="Int32" />
+      <Parameter Name="DocumentName" Mode="In" Type="String" />
+      <Parameter Name="Nationality" Mode="In" Type="String" />
+      <Parameter Name="VisaType" Mode="In" Type="String" />
+      <Parameter Name="Duration" Mode="In" Type="String" />
+      <Parameter Name="VisaCost" Mode="In" Type="Decimal" />
+      <Parameter Name="Charge" Mode="In" Type="Decimal" />
+      <Parameter Name="ProcessingDays" Mode="In" Type="Int32" />
+      <Parameter Name="SortOrder" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Expense">
+      <Parameter Name="ExpenseCode" Mode="In" Type="Int32" />
+      <Parameter Name="ExpenseName" Mode="In" Type="String" />
+      <Parameter Name="Charge" Mode="In" Type="Decimal" />
+      <Parameter Name="Remarks" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Miscellaneous">
+      <Parameter Name="OthersCode" Mode="In" Type="Int32" />
+      <Parameter Name="OthersTypeCode" Mode="In" Type="Int32" />
+      <Parameter Name="Charge" Mode="In" Type="Decimal" />
+      <Parameter Name="Remarks" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_OthersType">
+      <Parameter Name="OthersTypeCode" Mode="In" Type="Int32" />
+      <Parameter Name="OtherTypeName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Tours">
+      <Parameter Name="TourCode" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="Remarks" Mode="In" Type="String" />
+      <Parameter Name="TrxnDate" Mode="In" Type="DateTime" />
+      <Parameter Name="BuyingPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="SellingPrice" Mode="In" Type="Decimal" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_add_upd_Transactions">
+      <Parameter Name="TransactionID" Mode="In" Type="Int32" />
+      <Parameter Name="PassportNumber" Mode="In" Type="String" />
+      <Parameter Name="DocumentType" Mode="In" Type="Int32" />
+      <Parameter Name="BarcodeNumber" Mode="In" Type="String" />
+      <Parameter Name="InvoiceNumber" Mode="In" Type="String" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="ContactNo" Mode="In" Type="String" />
+      <Parameter Name="Nationality" Mode="In" Type="String" />
+      <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+      <Parameter Name="TransactionDate" Mode="In" Type="DateTime" />
+      <Parameter Name="DeliveryDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Remarks" Mode="In" Type="String" />
+      <Parameter Name="PayableAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="PaidAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="BalanceAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Acc_Vendors" ReturnType="Collection(CholaModel.sp_frm_get_Acc_Vendors_Result)">
+      <Parameter Name="VendorName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_AccSales_Customers" ReturnType="Collection(Decimal)">
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_AccSales_Payments" ReturnType="Collection(CholaModel.sp_frm_get_AccSales_Payments_Result)">
+      <Parameter Name="VendorCode" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_AccSales_Users" ReturnType="Collection(Decimal)">
+      <Parameter Name="VendorCode" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Customer_Payments" ReturnType="Collection(CholaModel.sp_frm_get_Customer_Payments_Result)">
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Customer_Report" ReturnType="Collection(CholaModel.sp_frm_get_Customer_Report_Result)">
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+      <Parameter Name="PaymentBy" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Customers" ReturnType="Collection(CholaModel.sp_frm_get_Customers_Result)">
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Documents" ReturnType="Collection(CholaModel.sp_frm_get_Documents_Result)">
+      <Parameter Name="DocumentName" Mode="In" Type="String" />
+      <Parameter Name="Nationality" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Expense" ReturnType="Collection(CholaModel.sp_frm_get_Expense_Result)">
+      <Parameter Name="ExpenseCode" Mode="In" Type="Int32" />
+      <Parameter Name="ExpenseName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="ParmType" Mode="In" Type="Int32" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Miscellaneous" ReturnType="Collection(CholaModel.sp_frm_get_Miscellaneous_Result)">
+      <Parameter Name="OthersCode" Mode="In" Type="Int32" />
+      <Parameter Name="OthersTypeCode" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="ParmType" Mode="In" Type="Int32" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_OtherTypes" ReturnType="Collection(CholaModel.sp_frm_get_OtherTypes_Result)">
+      <Parameter Name="OthersTypeName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_parm_Acc_Vendors" ReturnType="Collection(CholaModel.sp_frm_get_parm_Acc_Vendors_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="CompanyID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_parm_Customers" ReturnType="Collection(CholaModel.sp_frm_get_parm_Customers_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Parm_DocumentTypes" ReturnType="Collection(CholaModel.sp_frm_get_Parm_DocumentTypes_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Parm_OtherTypes" ReturnType="Collection(CholaModel.sp_frm_get_Parm_OtherTypes_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Parm_Status" ReturnType="Collection(CholaModel.sp_frm_get_Parm_Status_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Parm_Users" ReturnType="Collection(CholaModel.sp_frm_get_Parm_Users_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Tickets_Report" ReturnType="Collection(CholaModel.sp_frm_get_Tickets_Report_Result)">
+      <Parameter Name="TicketCode" Mode="In" Type="Int32" />
+      <Parameter Name="VendorName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Tours" ReturnType="Collection(CholaModel.sp_frm_get_Tours_Result)">
+      <Parameter Name="TourCode" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Transaction_Details" ReturnType="Collection(CholaModel.sp_frm_get_Transaction_Details_Result)">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Transaction_Details_OverAll" ReturnType="Collection(CholaModel.sp_frm_get_Transaction_Details_OverAll_Result)">
+      <Parameter Name="CustomerId" Mode="In" Type="Int32" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Transactions" ReturnType="Collection(CholaModel.sp_frm_get_Transactions_Result)">
+      <Parameter Name="TransactionID" Mode="In" Type="Int32" />
+      <Parameter Name="BarCodeNo" Mode="In" Type="String" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="PassportNo" Mode="In" Type="String" />
+      <Parameter Name="InvoiceNo" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+      <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_Security_get_UserHomePage" ReturnType="Collection(String)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_Security_get_Users" ReturnType="Collection(CholaModel.sp_frm_Security_get_Users_Result)">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="RoleName" Mode="In" Type="String" />
+      <Parameter Name="IsActive" Mode="In" Type="Int16" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_Security_TreeViewMenu" ReturnType="Collection(CholaModel.sp_frm_Security_TreeViewMenu_Result)">
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="Menu" Mode="In" Type="String" />
+      <Parameter Name="ParentID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="ETicket_Passengers" EntityType="CholaModel.ETicket_Passengers" />
+    <EntitySet Name="ETickets" EntityType="CholaModel.ETickets" />
+    <FunctionImport Name="sp_frm_add_upd_ETickets">
+      <Parameter Name="ETicketCode" Mode="In" Type="Int32" />
+      <Parameter Name="Prefix" Mode="In" Type="String" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+      <Parameter Name="AirlinePNR" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_ETickets" ReturnType="Collection(CholaModel.sp_frm_get_ETickets_Result)">
+      <Parameter Name="ETicketCode" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerName" Mode="In" Type="String" />
+      <Parameter Name="AirlinePNR" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Flights" EntityType="CholaModel.Flights" />
+    <FunctionImport Name="sp_frm_add_upd_Flights">
+      <Parameter Name="FlightCode" Mode="In" Type="Int32" />
+      <Parameter Name="FlightName" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="Boolean" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Flights" ReturnType="Collection(CholaModel.sp_frm_get_Flights_Result)">
+      <Parameter Name="FlightName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Airports" EntityType="CholaModel.Airports" />
+    <EntitySet Name="Baggages" EntityType="CholaModel.Baggages" />
+    <EntitySet Name="ETicket_Itinery" EntityType="CholaModel.ETicket_Itinery" />
+    <EntitySet Name="PaySlips" EntityType="CholaModel.PaySlip" />
+    <FunctionImport Name="sp_frm_add_upd_Tickets">
+      <Parameter Name="TicketCode" Mode="In" Type="Int64" />
+      <Parameter Name="VendorCode" Mode="In" Type="Int32" />
+      <Parameter Name="TicketDate" Mode="In" Type="DateTime" />
+      <Parameter Name="DueDate" Mode="In" Type="DateTime" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+      <Parameter Name="ContactNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_frm_get_Tickets" ReturnType="Collection(CholaModel.sp_frm_get_Tickets_Result1)">
+      <Parameter Name="TicketCode" Mode="In" Type="Int64" />
+      <Parameter Name="VendorName" Mode="In" Type="String" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="PageName" Mode="In" Type="String" />
+      <Parameter Name="TransactionFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="TransactionTo" Mode="In" Type="DateTime" />
+      <Parameter Name="RefNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Ticket_Customers" EntityType="CholaModel.Ticket_Customers" />
+    <EntitySet Name="Tickets" EntityType="CholaModel.Ticket" />
+  </EntityContainer>
+  <ComplexType Name="sp_frm_get_Acc_Vendors_Result">
+    <Property Type="Int32" Name="VendorCode" Nullable="false" />
+    <Property Type="String" Name="VendorName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address1" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Address2" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Address3" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TaxID" Nullable="true" MaxLength="100" />
+    <Property Type="Int16" Name="Status" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_AccSales_Payments_Result">
+    <Property Type="Int32" Name="TableKey" Nullable="false" />
+    <Property Type="Int32" Name="VendorCode" Nullable="true" />
+    <Property Type="String" Name="VendorName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PaymentDate" Nullable="true" MaxLength="20" />
+    <Property Type="Double" Name="PaymentAmount" Nullable="true" />
+    <Property Type="String" Name="PaymentBy" Nullable="true" MaxLength="10" />
+    <Property Type="Double" Name="BalanceAmount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Customer_Payments_Result">
+    <Property Type="Int32" Name="PaymentID" Nullable="false" />
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="PaymentDate" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="PaymentBy" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Customer_Report_Result">
+    <Property Type="String" Name="RefNo" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="250" />
+    <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Debit" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Credit" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Customers_Result">
+    <Property Type="String" Name="RefNo" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="250" />
+    <Property Type="Decimal" Name="OpeningBalance" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Documents_Result">
+    <Property Type="Int32" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Nationality" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="VisaType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Duration" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="VisaCost" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Charge" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ProcessingDays" Nullable="true" />
+    <Property Type="Int32" Name="SortOrder" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Expense_Result">
+    <Property Type="Int32" Name="ExpenseCode" Nullable="false" />
+    <Property Type="String" Name="ExpenseName" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="Charge" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Miscellaneous_Result">
+    <Property Type="Int32" Name="OthersCode" Nullable="false" />
+    <Property Type="Int32" Name="OthersTypeCode" Nullable="false" />
+    <Property Type="String" Name="OtherTypeName" Nullable="true" MaxLength="256" />
+    <Property Type="Decimal" Name="Charge" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_OtherTypes_Result">
+    <Property Type="Int32" Name="OthersTypeCode" Nullable="false" />
+    <Property Type="String" Name="OtherTypeName" Nullable="false" MaxLength="256" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_parm_Acc_Vendors_Result">
+    <Property Type="Int32" Name="VendorCode" Nullable="true" />
+    <Property Type="String" Name="VendorName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_parm_Customers_Result">
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Parm_DocumentTypes_Result">
+    <Property Type="Int32" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentName" Nullable="true" MaxLength="259" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Parm_OtherTypes_Result">
+    <Property Type="Int32" Name="OthersTypeCode" Nullable="false" />
+    <Property Type="String" Name="OtherTypeName" Nullable="false" MaxLength="256" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Parm_Status_Result">
+    <Property Type="Int32" Name="StatusCode" Nullable="false" />
+    <Property Type="String" Name="StatusName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Parm_Users_Result">
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Tickets_Report_Result">
+    <Property Type="Int32" Name="TicketCode" Nullable="false" />
+    <Property Type="String" Name="TrxnDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="350" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="350" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="350" />
+    <Property Type="Decimal" Name="BuyingPrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="SellingPrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="DueDate" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Tours_Result">
+    <Property Type="Int32" Name="TourCode" Nullable="false" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="TrxnDate" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="BuyingPrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="SellingPrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Transaction_Details_Result">
+    <Property Type="Double" Name="NoofOtherAmount" Nullable="true" />
+    <Property Type="Double" Name="NoofVisaAmount" Nullable="true" />
+    <Property Type="Double" Name="NoofTotalAmount" Nullable="true" />
+    <Property Type="Double" Name="NoofExpense" Nullable="true" />
+    <Property Type="String" Name="NoofCollections" Nullable="true" />
+    <Property Type="String" Name="NoofDelivered" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Transaction_Details_OverAll_Result">
+    <Property Type="Double" Name="NoofOtherAmount" Nullable="true" />
+    <Property Type="Double" Name="NoofVisaAmount" Nullable="true" />
+    <Property Type="Double" Name="NoofExpense" Nullable="true" />
+    <Property Type="Double" Name="NoofTotalAmount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Transactions_Result">
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="String" Name="PassportNumber" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentName" Nullable="true" MaxLength="259" />
+    <Property Type="String" Name="Nationality" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="VisaType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Duration" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="VisaCost" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="InvoiceNumber" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="256" />
+    <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="StatusCode" Nullable="true" />
+    <Property Type="String" Name="StatusName" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="PaidAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="BalanceAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="DateTime" Name="TransactionDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_Security_get_Users_Result">
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="true" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="LastName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="IsConfirmed" Nullable="true" />
+    <Property Type="String" Name="Roles" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_Security_TreeViewMenu_Result">
+    <Property Type="Int32" Name="PageID" Nullable="false" />
+    <Property Type="String" Name="PageTitle" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="PageURL" Nullable="true" MaxLength="256" />
+    <Property Type="Int32" Name="ChildNodeCount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_frm_get_Tickets_Result">
+    <Property Type="Int32" Name="TicketCode" Nullable="false" />
+    <Property Type="Int32" Name="VendorCode" Nullable="true" />
+    <Property Type="String" Name="VendorName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="String" Name="DueDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="TrxnDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="ETicket_Passengers">
+    <Key>
+      <PropertyRef Name="PassengerCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="Int32" Nullable="false" />
+    <Property Name="PassengerCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PassengerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PaxType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="TicketNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ETickets">
+    <Key>
+      <PropertyRef Name="ETicketCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="Int32" Nullable="false" />
+    <Property Name="Prefix" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RefNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AirlinePNR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="TrxnDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="sp_frm_get_ETickets_Result">
+    <Property Type="Int32" Name="ETicketCode" Nullable="false" />
+    <Property Type="String" Name="Prefix" Nullable="true" MaxLength="4" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="AirlinePNR" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Flights">
+    <Key>
+      <PropertyRef Name="FlightCode" />
+    </Key>
+    <Property Name="FlightCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FlightName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int16" />
+  </EntityType>
+  <ComplexType Name="sp_frm_get_Flights_Result">
+    <Property Type="Int32" Name="FlightCode" Nullable="false" />
+    <Property Type="String" Name="FlightName" Nullable="true" MaxLength="100" />
+    <Property Type="Int16" Name="Status" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Airports">
+    <Key>
+      <PropertyRef Name="AirportCode" />
+    </Key>
+    <Property Name="AirportCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AirportName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Baggages">
+    <Key>
+      <PropertyRef Name="BaggageCode" />
+    </Key>
+    <Property Name="BaggageCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BaggageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ETicket_Itinery">
+    <Key>
+      <PropertyRef Name="ItineryCode" />
+    </Key>
+    <Property Name="ETicketCode" Type="Int32" Nullable="false" />
+    <Property Name="ItineryCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Flight" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="FlightNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Depart" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DepartTer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DepartDate" Type="DateTime" Precision="3" />
+    <Property Name="DepartTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Arrive" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ArriveTer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ArriveDate" Type="DateTime" Precision="3" />
+    <Property Name="ArriveTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Class" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Baggage" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PaySlip">
+    <Key>
+      <PropertyRef Name="PaySlipCode" />
+    </Key>
+    <Property Name="PaySlipCode" Type="Int32" Nullable="false" />
+    <Property Name="MonthYear" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PayTo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="FINNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BasicPay" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OverTime" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Commission" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Allowance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GrossPay" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CPF" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MBF" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Advance" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IncomeTax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalDeductions" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Reembursement" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAdditions" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ApprovedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PayDay" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="sp_frm_get_Tickets_Result1">
+    <Property Type="Int64" Name="TicketCode" Nullable="false" />
+    <Property Type="Int32" Name="VendorCode" Nullable="true" />
+    <Property Type="String" Name="VendorName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="String" Name="DueDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="TrxnDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="202" />
+    <Property Type="String" Name="UpdatedDate" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="UserID" Nullable="true" />
+    <Property Type="String" Name="RefNo" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="ContactNo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Ticket_Customers">
+    <Key>
+      <PropertyRef Name="CustomerCode" />
+    </Key>
+    <Property Name="TicketCode" Type="Int64" Nullable="false" />
+    <Property Name="CustomerCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="BuyingPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SellingPrice" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="TicketCode" />
+    </Key>
+    <Property Name="TicketCode" Type="Int64" Nullable="false" />
+    <Property Name="VendorCode" Type="Int32" />
+    <Property Name="TrxnDate" Type="DateTime" Precision="3" />
+    <Property Name="DueDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

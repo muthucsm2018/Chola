@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CholaModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Acc_SalesPayments">
+      <EntityTypeMapping TypeName="CholaModel.Acc_SalesPayments">
+        <MappingFragment StoreEntitySet="Acc_SalesPayments">
+          <ScalarProperty Name="TableKey" ColumnName="TableKey" />
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="PaymentBy" ColumnName="PaymentBy" />
+          <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_Vendors">
+      <EntityTypeMapping TypeName="CholaModel.Acc_Vendors">
+        <MappingFragment StoreEntitySet="Acc_Vendors">
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address3" ColumnName="Address3" />
+          <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerAccount">
+      <EntityTypeMapping TypeName="CholaModel.CustomerAccount">
+        <MappingFragment StoreEntitySet="CustomerAccount">
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerAccount_Payment">
+      <EntityTypeMapping TypeName="CholaModel.CustomerAccount_Payment">
+        <MappingFragment StoreEntitySet="CustomerAccount_Payment">
+          <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="PaymentBy" ColumnName="PaymentBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Document">
+      <EntityTypeMapping TypeName="CholaModel.Document">
+        <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="VisaType" ColumnName="VisaType" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="VisaCost" ColumnName="VisaCost" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="ProcessingDays" ColumnName="ProcessingDays" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Miscellaneous">
+      <EntityTypeMapping TypeName="CholaModel.Miscellaneous">
+        <MappingFragment StoreEntitySet="Miscellaneous">
+          <ScalarProperty Name="OthersCode" ColumnName="OthersCode" />
+          <ScalarProperty Name="OthersTypeCode" ColumnName="OthersTypeCode" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OthersType">
+      <EntityTypeMapping TypeName="CholaModel.OthersType">
+        <MappingFragment StoreEntitySet="OthersType">
+          <ScalarProperty Name="OthersTypeCode" ColumnName="OthersTypeCode" />
+          <ScalarProperty Name="OtherTypeName" ColumnName="OtherTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_Pages">
+      <EntityTypeMapping TypeName="CholaModel.security_Pages">
+        <MappingFragment StoreEntitySet="security_Pages">
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="PageParentID" ColumnName="PageParentID" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+          <ScalarProperty Name="PageOrdinal" ColumnName="PageOrdinal" />
+          <ScalarProperty Name="IsMenu" ColumnName="IsMenu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_RolePages">
+      <EntityTypeMapping TypeName="CholaModel.security_RolePages">
+        <MappingFragment StoreEntitySet="security_RolePages">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="IsHomePage" ColumnName="IsHomePage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_Roles">
+      <EntityTypeMapping TypeName="CholaModel.security_Roles">
+        <MappingFragment StoreEntitySet="security_Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_UsersInRoles">
+      <EntityTypeMapping TypeName="CholaModel.security_UsersInRoles">
+        <MappingFragment StoreEntitySet="security_UsersInRoles">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="CholaModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tours">
+      <EntityTypeMapping TypeName="CholaModel.Tours">
+        <MappingFragment StoreEntitySet="Tours">
+          <ScalarProperty Name="TourCode" ColumnName="TourCode" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="BuyingPrice" ColumnName="BuyingPrice" />
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="CholaModel.Transactions">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="BarcodeNumber" ColumnName="BarcodeNumber" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="PayableAmount" ColumnName="PayableAmount" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="BarcodeImage" ColumnName="BarcodeImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_OAuthMembership">
+      <EntityTypeMapping TypeName="CholaModel.webpages_OAuthMembership">
+        <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Roles">
+      <EntityTypeMapping TypeName="CholaModel.webpages_Roles">
+        <MappingFragment StoreEntitySet="webpages_Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expense">
+      <EntityTypeMapping TypeName="CholaModel.Expense">
+        <MappingFragment StoreEntitySet="Expense">
+          <ScalarProperty Name="ExpenseCode" ColumnName="ExpenseCode" />
+          <ScalarProperty Name="ExpenseName" ColumnName="ExpenseName" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Membership">
+      <EntityTypeMapping TypeName="CholaModel.webpages_Membership">
+        <MappingFragment StoreEntitySet="webpages_Membership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Acc_Bill_ActualCost" FunctionName="CholaModel.Store.sp_frm_add_upd_Acc_Bill_ActualCost" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Acc_Vendors" FunctionName="CholaModel.Store.sp_frm_add_upd_Acc_Vendors" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_AccSalesPayment" FunctionName="CholaModel.Store.sp_frm_add_upd_AccSalesPayment" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_CustomerPayment" FunctionName="CholaModel.Store.sp_frm_add_upd_CustomerPayment" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Customers" FunctionName="CholaModel.Store.sp_frm_add_upd_Customers" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Document" FunctionName="CholaModel.Store.sp_frm_add_upd_Document" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Expense" FunctionName="CholaModel.Store.sp_frm_add_upd_Expense" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Miscellaneous" FunctionName="CholaModel.Store.sp_frm_add_upd_Miscellaneous" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_OthersType" FunctionName="CholaModel.Store.sp_frm_add_upd_OthersType" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Tours" FunctionName="CholaModel.Store.sp_frm_add_upd_Tours" />
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Transactions" FunctionName="CholaModel.Store.sp_frm_add_upd_Transactions" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Acc_Vendors" FunctionName="CholaModel.Store.sp_frm_get_Acc_Vendors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Acc_Vendors_Result">
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address3" ColumnName="Address3" />
+          <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_AccSales_Customers" FunctionName="CholaModel.Store.sp_frm_get_AccSales_Customers" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_AccSales_Payments" FunctionName="CholaModel.Store.sp_frm_get_AccSales_Payments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_AccSales_Payments_Result">
+          <ScalarProperty Name="TableKey" ColumnName="TableKey" />
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="PaymentBy" ColumnName="PaymentBy" />
+          <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_AccSales_Users" FunctionName="CholaModel.Store.sp_frm_get_AccSales_Users" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Customer_Payments" FunctionName="CholaModel.Store.sp_frm_get_Customer_Payments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Customer_Payments_Result">
+          <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaymentBy" ColumnName="PaymentBy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Customer_Report" FunctionName="CholaModel.Store.sp_frm_get_Customer_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Customer_Report_Result">
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+          <ScalarProperty Name="Debit" ColumnName="Debit" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Customers" FunctionName="CholaModel.Store.sp_frm_get_Customers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Customers_Result">
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Documents" FunctionName="CholaModel.Store.sp_frm_get_Documents">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Documents_Result">
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="VisaType" ColumnName="VisaType" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="VisaCost" ColumnName="VisaCost" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="ProcessingDays" ColumnName="ProcessingDays" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Expense" FunctionName="CholaModel.Store.sp_frm_get_Expense">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Expense_Result">
+          <ScalarProperty Name="ExpenseCode" ColumnName="ExpenseCode" />
+          <ScalarProperty Name="ExpenseName" ColumnName="ExpenseName" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Miscellaneous" FunctionName="CholaModel.Store.sp_frm_get_Miscellaneous">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Miscellaneous_Result">
+          <ScalarProperty Name="OthersCode" ColumnName="OthersCode" />
+          <ScalarProperty Name="OthersTypeCode" ColumnName="OthersTypeCode" />
+          <ScalarProperty Name="OtherTypeName" ColumnName="OtherTypeName" />
+          <ScalarProperty Name="Charge" ColumnName="Charge" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_OtherTypes" FunctionName="CholaModel.Store.sp_frm_get_OtherTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_OtherTypes_Result">
+          <ScalarProperty Name="OthersTypeCode" ColumnName="OthersTypeCode" />
+          <ScalarProperty Name="OtherTypeName" ColumnName="OtherTypeName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_parm_Acc_Vendors" FunctionName="CholaModel.Store.sp_frm_get_parm_Acc_Vendors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_parm_Acc_Vendors_Result">
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_parm_Customers" FunctionName="CholaModel.Store.sp_frm_get_parm_Customers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_parm_Customers_Result">
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Parm_DocumentTypes" FunctionName="CholaModel.Store.sp_frm_get_Parm_DocumentTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Parm_DocumentTypes_Result">
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Parm_OtherTypes" FunctionName="CholaModel.Store.sp_frm_get_Parm_OtherTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Parm_OtherTypes_Result">
+          <ScalarProperty Name="OthersTypeCode" ColumnName="OthersTypeCode" />
+          <ScalarProperty Name="OtherTypeName" ColumnName="OtherTypeName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Parm_Status" FunctionName="CholaModel.Store.sp_frm_get_Parm_Status">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Parm_Status_Result">
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Parm_Users" FunctionName="CholaModel.Store.sp_frm_get_Parm_Users">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Parm_Users_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Tickets_Report" FunctionName="CholaModel.Store.sp_frm_get_Tickets_Report">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Tickets_Report_Result">
+          <ScalarProperty Name="TicketCode" ColumnName="TicketCode" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="BuyingPrice" ColumnName="BuyingPrice" />
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Tours" FunctionName="CholaModel.Store.sp_frm_get_Tours">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Tours_Result">
+          <ScalarProperty Name="TourCode" ColumnName="TourCode" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="BuyingPrice" ColumnName="BuyingPrice" />
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Transaction_Details" FunctionName="CholaModel.Store.sp_frm_get_Transaction_Details">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Transaction_Details_Result">
+          <ScalarProperty Name="NoofOtherAmount" ColumnName="NoofOtherAmount" />
+          <ScalarProperty Name="NoofVisaAmount" ColumnName="NoofVisaAmount" />
+          <ScalarProperty Name="NoofTotalAmount" ColumnName="NoofTotalAmount" />
+          <ScalarProperty Name="NoofExpense" ColumnName="NoofExpense" />
+          <ScalarProperty Name="NoofCollections" ColumnName="NoofCollections" />
+          <ScalarProperty Name="NoofDelivered" ColumnName="NoofDelivered" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Transaction_Details_OverAll" FunctionName="CholaModel.Store.sp_frm_get_Transaction_Details_OverAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Transaction_Details_OverAll_Result">
+          <ScalarProperty Name="NoofOtherAmount" ColumnName="NoofOtherAmount" />
+          <ScalarProperty Name="NoofVisaAmount" ColumnName="NoofVisaAmount" />
+          <ScalarProperty Name="NoofExpense" ColumnName="NoofExpense" />
+          <ScalarProperty Name="NoofTotalAmount" ColumnName="NoofTotalAmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Transactions" FunctionName="CholaModel.Store.sp_frm_get_Transactions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Transactions_Result">
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="VisaType" ColumnName="VisaType" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="VisaCost" ColumnName="VisaCost" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_Security_get_UserHomePage" FunctionName="CholaModel.Store.sp_frm_Security_get_UserHomePage" />
+    <FunctionImportMapping FunctionImportName="sp_frm_Security_get_Users" FunctionName="CholaModel.Store.sp_frm_Security_get_Users">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_Security_get_Users_Result">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_Security_TreeViewMenu" FunctionName="CholaModel.Store.sp_frm_Security_TreeViewMenu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_Security_TreeViewMenu_Result">
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+          <ScalarProperty Name="PageURL" ColumnName="PageURL" />
+          <ScalarProperty Name="ChildNodeCount" ColumnName="ChildNodeCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ETicket_Passengers">
+      <EntityTypeMapping TypeName="CholaModel.ETicket_Passengers">
+        <MappingFragment StoreEntitySet="ETicket_Passengers">
+          <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+          <ScalarProperty Name="PaxType" ColumnName="PaxType" />
+          <ScalarProperty Name="PassengerName" ColumnName="PassengerName" />
+          <ScalarProperty Name="PassengerCode" ColumnName="PassengerCode" />
+          <ScalarProperty Name="ETicketCode" ColumnName="ETicketCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ETickets">
+      <EntityTypeMapping TypeName="CholaModel.ETickets">
+        <MappingFragment StoreEntitySet="ETickets">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="AirlinePNR" ColumnName="AirlinePNR" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="ETicketCode" ColumnName="ETicketCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_ETickets" FunctionName="CholaModel.Store.sp_frm_add_upd_ETickets" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_ETickets" FunctionName="CholaModel.Store.sp_frm_get_ETickets">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_ETickets_Result">
+          <ScalarProperty Name="ETicketCode" ColumnName="ETicketCode" />
+          <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="AirlinePNR" ColumnName="AirlinePNR" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Flights">
+      <EntityTypeMapping TypeName="CholaModel.Flights">
+        <MappingFragment StoreEntitySet="Flights">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FlightName" ColumnName="FlightName" />
+          <ScalarProperty Name="FlightCode" ColumnName="FlightCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Flights" FunctionName="CholaModel.Store.sp_frm_add_upd_Flights" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Flights" FunctionName="CholaModel.Store.sp_frm_get_Flights">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Flights_Result">
+          <ScalarProperty Name="FlightCode" ColumnName="FlightCode" />
+          <ScalarProperty Name="FlightName" ColumnName="FlightName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Airports">
+      <EntityTypeMapping TypeName="CholaModel.Airports">
+        <MappingFragment StoreEntitySet="Airports">
+          <ScalarProperty Name="AirportName" ColumnName="AirportName" />
+          <ScalarProperty Name="AirportCode" ColumnName="AirportCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Baggages">
+      <EntityTypeMapping TypeName="CholaModel.Baggages">
+        <MappingFragment StoreEntitySet="Baggages">
+          <ScalarProperty Name="BaggageName" ColumnName="BaggageName" />
+          <ScalarProperty Name="BaggageCode" ColumnName="BaggageCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ETicket_Itinery">
+      <EntityTypeMapping TypeName="CholaModel.ETicket_Itinery">
+        <MappingFragment StoreEntitySet="ETicket_Itinery">
+          <ScalarProperty Name="Baggage" ColumnName="Baggage" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="ArriveTime" ColumnName="ArriveTime" />
+          <ScalarProperty Name="ArriveDate" ColumnName="ArriveDate" />
+          <ScalarProperty Name="ArriveTer" ColumnName="ArriveTer" />
+          <ScalarProperty Name="Arrive" ColumnName="Arrive" />
+          <ScalarProperty Name="DepartTime" ColumnName="DepartTime" />
+          <ScalarProperty Name="DepartDate" ColumnName="DepartDate" />
+          <ScalarProperty Name="DepartTer" ColumnName="DepartTer" />
+          <ScalarProperty Name="Depart" ColumnName="Depart" />
+          <ScalarProperty Name="FlightNo" ColumnName="FlightNo" />
+          <ScalarProperty Name="Flight" ColumnName="Flight" />
+          <ScalarProperty Name="ItineryCode" ColumnName="ItineryCode" />
+          <ScalarProperty Name="ETicketCode" ColumnName="ETicketCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaySlips">
+      <EntityTypeMapping TypeName="CholaModel.PaySlip">
+        <MappingFragment StoreEntitySet="PaySlip">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="PayDay" ColumnName="PayDay" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="TotalAdditions" ColumnName="TotalAdditions" />
+          <ScalarProperty Name="Reembursement" ColumnName="Reembursement" />
+          <ScalarProperty Name="TotalDeductions" ColumnName="TotalDeductions" />
+          <ScalarProperty Name="IncomeTax" ColumnName="IncomeTax" />
+          <ScalarProperty Name="Advance" ColumnName="Advance" />
+          <ScalarProperty Name="MBF" ColumnName="MBF" />
+          <ScalarProperty Name="CPF" ColumnName="CPF" />
+          <ScalarProperty Name="GrossPay" ColumnName="GrossPay" />
+          <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="OverTime" ColumnName="OverTime" />
+          <ScalarProperty Name="BasicPay" ColumnName="BasicPay" />
+          <ScalarProperty Name="FINNo" ColumnName="FINNo" />
+          <ScalarProperty Name="PayTo" ColumnName="PayTo" />
+          <ScalarProperty Name="MonthYear" ColumnName="MonthYear" />
+          <ScalarProperty Name="PaySlipCode" ColumnName="PaySlipCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_frm_add_upd_Tickets" FunctionName="CholaModel.Store.sp_frm_add_upd_Tickets" />
+    <FunctionImportMapping FunctionImportName="sp_frm_get_Tickets" FunctionName="CholaModel.Store.sp_frm_get_Tickets">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CholaModel.sp_frm_get_Tickets_Result1">
+          <ScalarProperty Name="TicketCode" ColumnName="TicketCode" />
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Ticket_Customers">
+      <EntityTypeMapping TypeName="CholaModel.Ticket_Customers">
+        <MappingFragment StoreEntitySet="Ticket_Customers">
+          <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+          <ScalarProperty Name="BuyingPrice" ColumnName="BuyingPrice" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+          <ScalarProperty Name="TicketCode" ColumnName="TicketCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="CholaModel.Ticket">
+        <MappingFragment StoreEntitySet="Tickets">
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="TrxnDate" ColumnName="TrxnDate" />
+          <ScalarProperty Name="VendorCode" ColumnName="VendorCode" />
+          <ScalarProperty Name="TicketCode" ColumnName="TicketCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

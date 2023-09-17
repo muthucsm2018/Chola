@@ -1,0 +1,194 @@
+﻿@model Chola.Models.EditVoucherModel
+@using Chola.Models
+@{
+    ViewBag.Title = "Edit Voucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <!-- Main content -->
+    @using (Html.BeginForm("EditVoucher", "PayRolls", null, FormMethod.Post, new { id = "EditVoucher_form", enctype = "multipart/form-data" }))
+    {
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border" style="display:none">
+                            <h3 class="box-title"><span>Edit Voucher Entry</span></h3>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="box-body">
+                            @if (@ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <h4>Validation Errors</h4>
+                                    @Html.ValidationSummary()
+                                </div>
+                            }
+                            @Html.AntiForgeryToken()
+                            <div class="col-sm-12 callout callout-info">
+                                <p id="div_success">@Html.Raw(ViewBag.Message)</p>
+                            </div>
+                        @*<input type="hidden" id="PaySlipCode" name="PaySlipCode" value="@Model.PaySlipCode" />*@
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Voucher No</label><code>Auto</code>
+                                        <input type="text" class="form-control" id="PaySlipCode" name="PaySlipCode" value="@Model.PaySlipCode" readonly="readonly" >
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Month Year</label>
+                                        <input type="text" class="form-control" tabindex="1" id="MonthYear" name="MonthYear" value="@Model.MonthYear" placeholder="Ex : Jun 2022">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Pay To</label>
+                                        <input type="text" class="form-control" tabindex="2" id="PayTo" name="PayTo" value="@Model.PayTo">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">NRIC / FIN No</label>
+                                        <input type="text" class="form-control" tabindex="3" id="FINNo" name="FINNo" value="@Model.FINNo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Basic Pay</label>
+                                        <input type="text" class="form-control" tabindex="4" id="BasicPay" name="BasicPay" value="@Model.BasicPay">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">OverTime</label>
+                                        <input type="text" class="form-control" tabindex="5" id="OverTime" name="OverTime" value="@Model.OverTime">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Commission</label>
+                                        <input type="text" class="form-control" tabindex="6" id="Commission" name="Commission" value="@Model.Commission">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Allowance</label>
+                                        <input type="text" class="form-control" tabindex="7" id="Allowance" name="Allowance" value="@Model.Allowance">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label">CPF</label>
+                                        <input type="text" class="form-control" tabindex="8" id="CPF" name="CPF" value="@Model.CPF">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">MBF</label>
+                                        <input type="text" class="form-control" tabindex="9" id="MBF" name="MBF" value="@Model.MBF">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Advance</label>
+                                        <input type="text" class="form-control" tabindex="10" id="Advance" name="Advance" value="@Model.Advance">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">IncomeTax</label>
+                                        <input type="text" class="form-control" tabindex="11" id="IncomeTax" name="IncomeTax" value="@Model.IncomeTax">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Reembursement</label>
+                                        <input type="text" class="form-control" tabindex="12" id="Reembursement" name="Reembursement" value="@Model.Reembursement">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">ApprovedBy</label>
+                                        <input type="text" class="form-control" tabindex="13" id="ApprovedBy" name="ApprovedBy" value="@Model.ApprovedBy">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Pay Day</label>
+                                        @if (Shared.ToString(Model.PayDay).Length > 0)
+                                        {
+                                            <input type="text" tabindex="14" class="form-control pull-right" id="PayDay" name="PayDay" value="@Model.PayDay.Value.ToString("MM/dd/yyyy")" placeholder="">
+                                        }
+                                        else
+                                        {
+                                            <input type="text" tabindex="14" class="form-control pull-right" id="PayDay" name="PayDay" placeholder="">
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- /.box -->
+                        <div id="div_error"></div>
+
+                        <div class="box-body">
+                            <div class="box-footer">
+                                <div class="margin pull-right hidden-xs">
+                                    <button type="submit" id="btnsubmit" class="btn btn-primary" tabindex="15"><i class="fa fa-save"></i> Submit</button>
+                                    <button onclick="cancelclick();" type="button" tabindex="16" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.col-sm-8 -->
+
+                </div> <!-- /.row -->
+            </div>
+        </section> <!-- /.content-->
+
+    }
+</div><!-- /.content-wrapper -->
+<!-- page script -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var tabindex = 1;
+        $('[tabindex=' + tabindex + ']').focus();
+
+        $('#PayDay').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: false
+        });
+
+        $('#BasicPay').add('#OverTime').add('#Commission').$('#Allowance').add('#CPF').add('#MBF').add('#Advance').add('#IncomeTax').add('#Reembursement').on('keydown', function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+    });
+
+    function GetInfo() {
+        $('#myTable').DataTable().ajax.reload();
+    }
+
+    function cancelclick() {
+        document.location = '@Url.Action("ListVouchers", "PayRolls")';
+    }
+
+    function IsStringEmpty(str) {
+        if (str && str != '')
+            return false;
+        else
+            return true;
+    }
+
+</script>
+
+
